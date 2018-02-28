@@ -2,32 +2,46 @@ import React, { Component } from "react";
 import { getArticles } from "../../api/api";
 
 class Article extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-      article: {},
+  constructor(props) {
+    super(props);
+    this.state = {
+      article: {}
     };
-	}
+  }
 
-	async componentDidMount() {
+  componentDidMount() {
+    this.refreshSingleArticle();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.number !== this.props.match.params.number) {
+      // Fix bug: force to refresh article state when article id change.
+      this.refreshSingleArticle();
+    }
+  }
+
+  async refreshSingleArticle() {
     const articles = await getArticles();
-    const filterAticle = articles.filter((article) => (article.id === this.props.match.params.number));
+    const filterArticle = articles.filter(article => {
+      return article.id === this.props.match.params.number;
+    });
 
     this.setState({
-      article: filterAticle[0]
+      article: filterArticle[0]
     });
-	}
+  }
 
-	render() {
+  render() {
     const { article: { title, body, img } } = this.state;
 
-    return(
+    return (
       <div>
         <h1>{title}</h1>
         <p>{body}</p>
-        <img src={img} /><br />
+        <img src={img} />
+        <br />
       </div>
-    ); 
+    );
   }
 }
 

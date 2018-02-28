@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getArticles } from "../../api/api";
+import { getArticle } from "../../api/api";
 
 class Article extends Component {
   constructor(props) {
@@ -10,24 +10,26 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    this.refreshSingleArticle();
+    this.refreshSingleArticle(this.props.match.params.number);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.number !== this.props.match.params.number) {
       // Fix bug: force to refresh article state when article id change.
-      this.refreshSingleArticle();
+      this.refreshSingleArticle(nextProps.match.params.number);
     }
   }
 
-  async refreshSingleArticle() {
-    const articles = await getArticles();
-    const filterArticle = articles.filter(article => {
-      return article.id === this.props.match.params.number;
-    });
+  async refreshSingleArticle(articleId) {
+    const filterArticle = await getArticle(articleId);
+
+    if (!filterArticle) {
+      // This article doesn't exist.
+      return;
+    }
 
     this.setState({
-      article: filterArticle[0]
+      article: filterArticle
     });
   }
 

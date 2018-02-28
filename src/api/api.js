@@ -1,4 +1,5 @@
 import mockArticles from "./mockArticles.json";
+import * as omdb from "./omdb";
 
 const USE_DISTANT_API = false;
 const DEFAULT_TIMEOUT = 200;
@@ -60,4 +61,12 @@ export const getArticle = async (articleId, timeout = DEFAULT_TIMEOUT) => {
   res = filterListBy(res, articleId);
 
   return res && res.length > 0 ? res[0] : false;
+};
+
+export const searchMovies = async searchRequest => {
+  return await omdb.searchMovies(searchRequest);
+};
+
+export const getMovie = async searchRequest => {
+  return await omdb.getMovie(searchRequest);
 };

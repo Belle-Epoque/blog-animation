@@ -8,7 +8,7 @@ import {
   CardText
 } from "material-ui/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { getArticles } from "../../api/api";
+import { getArticles, searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
@@ -24,14 +24,22 @@ class Home extends Component {
 
     this.state = {
       articles: [],
+      movies: [],
       show: false
     };
   }
 
   async componentDidMount() {
     const articles = await getArticles();
+
+    const movies = await searchMovies("matrix");
+    console.log(movies);
+    const firstFullDataMovie = await getMovie(movies[0].imdb);
+    console.log(firstFullDataMovie);
+
     this.setState({
       articles,
+      movies,
       show: true
     });
   }

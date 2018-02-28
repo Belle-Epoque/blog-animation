@@ -7,10 +7,16 @@ import {
   CardTitle,
   CardText
 } from "material-ui/Card";
-import { TransitionGroup } from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getArticles } from "../../api/api";
 import { Link } from "react-router-dom";
 import "./Home.css";
+
+const Fade = ({ children, ...props }) => (
+  <CSSTransition {...props} timeout={3000} classNames="fade">
+    {children}
+  </CSSTransition>
+);
 
 class Home extends Component {
   constructor(props) {
@@ -18,14 +24,15 @@ class Home extends Component {
 
     this.state = {
       articles: [],
-      items: ["I'm number 1", "I'm number 2", "I'm number 3"],
-      itemNumber: 3
+      show: false
     };
   }
+
   async componentDidMount() {
     const articles = await getArticles();
     this.setState({
-      articles
+      articles,
+      show: true
     });
   }
 
@@ -35,27 +42,29 @@ class Home extends Component {
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
-            <TransitionGroup
-              transitionName="fade"
-              transitionEnterTimeout={300}
-              transitionLeaveTimeout={300}
-              transitionAppear={true}
-              transitionAppearTimeout={1000}
-            >
+            <TransitionGroup className="todo-list">
               {articles.map(article => (
-				<Card key={article.id} className="Card">
-					<Link to={`/article/${article.id}`} className="Card-link">
-						<CardHeader
-							title="Bob"
-							subtitle="Web dev"
-							avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
-						/>
-						<CardMedia className="Card-media" style={{backgroundImage: `url(${article.img})`}} overlay={<CardTitle title={article.title} />} overlayContentStyle={{background:'transparent'}} overlayStyle={{ color: '#fff'}}/>
-						<CardText>
-							{article.excerpt}
-						</CardText>
-					</Link>
-				</Card>
+                <Fade key={article.id}>
+                  <div>
+                    <Card>
+                      <Link to={`/article/${article.id}`} className="Card-link">
+                        <CardHeader
+                          title="Bob"
+                          subtitle="Web dev"
+                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
+                        />
+                        <CardMedia
+                          className="Card-media"
+                          style={{ backgroundImage: `url(${article.img})` }}
+                          overlay={<CardTitle title={article.title} />}
+                          overlayContentStyle={{ background: "transparent" }}
+                          overlayStyle={{ color: "#fff" }}
+                        />
+                        <CardText>{article.excerpt}</CardText>
+                      </Link>
+                    </Card>
+                  </div>
+                </Fade>
               ))}
             </TransitionGroup>
           </div>

@@ -7,7 +7,7 @@ import './Menu.css';
 
 const Menu = ({open}) => (
     <Fragment>
-        <div className="Overlay" style={{ opacity: open ? `1` : `0` }} />
+        <div className="Overlay" style={{ opacity: open ? `1` : `0`,  display: open ? `block` : `none` }} />
         <List className="Menu" style={{traslateX: open ? `left` : `right`, transform: open ? `translateX(0)` : `translateX(-100%)` }}>
             <ListItem>
                 <Link className="Menu-link" to="/">Home</Link>

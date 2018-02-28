@@ -6,6 +6,11 @@
   margin-bottom: 50px;
 }
 
+.AppBar {
+  position: fixed !important;
+  top: 0;
+}
+
 .active {
   color: tomato;
 }
@@ -37,10 +42,6 @@
   padding:2px 5px;
   text-align:center;
   white-space:nowrap;
-}
-
-.AppBar {
-  background: 
 }
 
 * {

@@ -1,10 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
-import IconButton from "material-ui/IconButton";
-import NavigationClose from "material-ui/svg-icons/navigation/close";
 import AppBar from "material-ui/AppBar";
 import Menu from "./Menu.js";
-import logo from "./logo.svg";
 import "./Header.css";
 
 class Header extends Component {

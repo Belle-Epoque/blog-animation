@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { List, ListItem } from "material-ui/List";
 import { Link } from "react-router-dom";
-import FlatButton from "material-ui/FlatButton";
 import "./Menu.css";
 
 const Menu = ({ open, closeMenu }) => (

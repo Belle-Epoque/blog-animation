@@ -1,0 +1,51 @@
+.Home-title {
+  font-size: 1.5em;
+}
+
+.Home-intro {
+  font-size: large;
+}
+
+@keyframes Home-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.Card-media {
+  padding-top: 50%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.Card-link {
+  text-decoration: none;
+}
+
+.Card {
+  text-align: left;
+  margin-bottom: 50px;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+.fade-leave {
+  opacity: 1;
+}
+.fade-leave-active {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.fade-appear {
+  opacity: 0;
+}
+.fade-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-out;
+}

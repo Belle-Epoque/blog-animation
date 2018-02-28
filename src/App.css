@@ -1,0 +1,27 @@
+.App {
+  text-align: center;
+}
+
+body {
+  background: #f2f3f4;
+}
+.container {
+  /* On centre */
+  margin: 0 auto;
+
+  /* On limite la largeur pour les grands écrans */
+  max-width: 1280px;
+
+  /* On gère la présence d'une marge */
+  width: 90%;
+}
+
+/*
+* Comme la dite marge est exprimée en pourcentage,
+* on l'augmente sur les devices moins larges.
+*/
+@media only screen and (min-width: 993px){
+  .container {
+      width: 85%;
+  }
+}

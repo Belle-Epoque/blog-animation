@@ -1,5 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { getArticle } from "../../api/api";
+import BlackBox from "./BlackBox.js";
+import "./Article.css";
 
 class Article extends Component {
   constructor(props) {
@@ -37,12 +39,20 @@ class Article extends Component {
     const { article: { title, body, img } } = this.state;
 
     return (
-      <div>
-        <h1>{title}</h1>
-        <p>{body}</p>
-        <img src={img} />
-        <br />
-      </div>
+      <Fragment>
+        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
+          <BlackBox reverseDirection={false} />
+          <BlackBox reverseDirection={true} />
+          <BlackBox reverseDirection={false} />
+          <BlackBox reverseDirection={true} />
+        </div>
+        <div className="container">
+          <div className="Article-body">
+            <h1 className="Article-title">{title}</h1>
+            <p>{body}</p>
+          </div>
+        </div>
+      </Fragment>
     );
   }
 }

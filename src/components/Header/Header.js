@@ -16,7 +16,6 @@ class Header extends Component {
   }
 
   handleClick() {
-    console.log("onClick triggered on the title component");
     this.setState({
       open: !this.state.open
     });
@@ -43,6 +42,7 @@ class Header extends Component {
             </div>
           }
         />
+
         <Menu open={this.state.open} closeMenu={() => this.forceCloseMenu()} />
       </Fragment>
     );

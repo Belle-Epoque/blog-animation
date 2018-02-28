@@ -45,7 +45,7 @@ class Home extends Component {
             <TransitionGroup className="todo-list">
               {articles.map(article => (
                 <Fade key={article.id}>
-                  <div>
+                  <div className="Card">
                     <Card>
                       <Link to={`/article/${article.id}`} className="Card-link">
                         <CardHeader

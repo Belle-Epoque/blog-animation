@@ -1,0 +1,17 @@
+.Article-img {
+  height: calc(100vh - 64px);
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.Article-body {
+  margin-top: 30px;
+}
+
+.Article-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-transform: upeprcase;
+  margin-bottom: 30px;
+}

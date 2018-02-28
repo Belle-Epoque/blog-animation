@@ -21,32 +21,35 @@
 }
 
 .Header-menu {
-  float:right;
-  position:relative;
-  left:-50%;
-  text-align:left;
+  float: right;
+  position: relative;
+  left: -50%;
+  text-align: left;
 }
 
-.Header-menu ul{
-  list-style:none;
-  position:relative;
-  left:50%;
+.Header-menu ul {
+  list-style: none;
+  position: relative;
+  left: 50%;
 }
 
-.Header-menu li{float:left;position:relative;}/* ie needs position:relative here*/
+.Header-menu li {
+  float: left;
+  position: relative;
+} /* ie needs position:relative here*/
 
-.Header-menu a{
-  text-decoration:none;
-  margin:10px;
-  float:left;
-  padding:2px 5px;
-  text-align:center;
-  white-space:nowrap;
+.Header-menu a {
+  text-decoration: none;
+  margin: 10px;
+  float: left;
+  padding: 2px 5px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 * {
   margin: 0;
-  padding: 0; 
+  padding: 0;
 }
 
 /* Icon 1 */
@@ -58,8 +61,9 @@
   height: 20px;
   position: relative;
   transform: rotate(0deg);
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
   cursor: pointer;
+  margin-left: 30px;
 }
 
 .Menu-icon span {
@@ -71,7 +75,7 @@
   opacity: 1;
   left: 0;
   transform: rotate(0deg);
-  transition: .25s ease-in-out;
+  transition: 0.25s ease-in-out;
 }
 
 .Menu-icon span:nth-child(1) {
@@ -93,7 +97,8 @@
 
 .Menu-icon.open span:nth-child(2) {
   opacity: 0;
-  left: -302}
+  left: -302;
+}
 
 .Menu-icon.open span:nth-child(3) {
   top: 18px;

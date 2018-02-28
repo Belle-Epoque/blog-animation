@@ -38,3 +38,63 @@
   text-align:center;
   white-space:nowrap;
 }
+
+.AppBar {
+  background: 
+}
+
+* {
+  margin: 0;
+  padding: 0; 
+}
+
+/* Icon 1 */
+
+.Menu-icon {
+  width: 30px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  height: 20px;
+  position: relative;
+  transform: rotate(0deg);
+  transition: .5s ease-in-out;
+  cursor: pointer;
+}
+
+.Menu-icon span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.Menu-icon span:nth-child(1) {
+  top: 0px;
+}
+
+.Menu-icon span:nth-child(2) {
+  top: calc(50% - 1.5px);
+}
+
+.Menu-icon span:nth-child(3) {
+  top: calc(100% - 3px);
+}
+
+.Menu-icon.open span:nth-child(1) {
+  top: 18px;
+  transform: rotate(135deg);
+}
+
+.Menu-icon.open span:nth-child(2) {
+  opacity: 0;
+  left: -302}
+
+.Menu-icon.open span:nth-child(3) {
+  top: 18px;
+  transform: rotate(-135deg);
+}

@@ -1,0 +1,30 @@
+.Menu {
+    position: fixed;
+    width: 75%;
+    max-width: 500px;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: #fff;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.Menu-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.87);
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.Overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: 0.3s;
+}

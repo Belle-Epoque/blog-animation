@@ -29,12 +29,6 @@ class Home extends Component {
 			<div className="Home">
 				<div className="Home-intro">
 					<div className="container">
-						<CSSTransitionGroup
-							transitionName="fade"
-							transitionEnterTimeout={300}
-							transitionLeaveTimeout={300}
-							transitionAppear={true}
-							transitionAppearTimeout={1000}>
 							{articles.map(article => (
 								<Card key={article.id} className="Card">
 									<Link to={`/article/${article.id}`} className="Card-link">
@@ -50,7 +44,6 @@ class Home extends Component {
 									</Link>
 								</Card>
 							))}
-						</CSSTransitionGroup>
 					</div>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import Transition from "react-transition-group/Transition";
 import { getArticles } from "../../api/api";
+import BlackBox from "./BlackBox.js";
 import "./Article.css";
 
 class Article extends Component {
@@ -38,15 +38,13 @@ class Article extends Component {
 
     return (
       <Fragment>
-        <Transition timeout={150} in={true}>
-          {status => (
-            <div
-              className="Article-img"
-              style={{ backgroundImage: `url(${img})` }}
-            />
-          )}
-        </Transition>
-        <div class="container">
+        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
+          <BlackBox reverseDirection={false} />
+          <BlackBox reverseDirection={true} />
+          <BlackBox reverseDirection={false} />
+          <BlackBox reverseDirection={true} />
+        </div>
+        <div className="container">
           <div className="Article-body">
             <h1 className="Article-title">{title}</h1>
             <p>{body}</p>

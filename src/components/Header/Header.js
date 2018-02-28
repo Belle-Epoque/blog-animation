@@ -20,6 +20,13 @@ class Header extends Component {
       open: !this.state.open
     });
   }
+
+  forceCloseMenu() {
+    this.setState({
+      open: false
+    });
+  }
+
   render() {
     return (
       <Fragment>
@@ -35,7 +42,8 @@ class Header extends Component {
             </div>
           }
         />
-        <Menu open={this.state.open} />
+
+        <Menu open={this.state.open} closeMenu={() => this.forceCloseMenu()} />
       </Fragment>
     );
   }

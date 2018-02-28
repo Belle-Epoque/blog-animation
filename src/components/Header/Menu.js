@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import FlatButton from "material-ui/FlatButton";
 import "./Menu.css";
 
-const Menu = ({ open }) => (
+const Menu = ({ open, closeMenu }) => (
   <Fragment>
     <div
       className="Overlay"
@@ -19,27 +19,27 @@ const Menu = ({ open }) => (
       }}
     >
       <ListItem>
-        <Link className="Menu-link" to="/">
+        <Link className="Menu-link" onClick={e => closeMenu()} to="/">
           Home
         </Link>
       </ListItem>
       <ListItem>
-        <Link className="Menu-link" to="/about">
+        <Link className="Menu-link" onClick={e => closeMenu()} to="/about">
           About
         </Link>
       </ListItem>
       <ListItem>
-        <Link className="Menu-link" to="/article/1">
+        <Link className="Menu-link" onClick={e => closeMenu()} to="/article/1">
           Article #1
         </Link>
       </ListItem>
       <ListItem>
-        <Link className="Menu-link" to="/article/2">
+        <Link className="Menu-link" onClick={e => closeMenu()} to="/article/2">
           Article #2
         </Link>
       </ListItem>
       <ListItem>
-        <Link className="Menu-link" to="/page">
+        <Link className="Menu-link" onClick={e => closeMenu()} to="/page">
           Page
         </Link>
       </ListItem>

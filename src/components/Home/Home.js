@@ -35,10 +35,10 @@ class Home extends Component {
   async componentDidMount() {
     const articles = await getArticles();
 
-    // const movies = await searchMovies("matrix");
-    // console.log(movies);
-    // const firstFullDataMovie = await getMovie(movies[0].imdb);
-    // console.log(firstFullDataMovie);
+    const movies = await searchMovies("matrix");
+    console.log(movies);
+    const firstFullDataMovie = await getMovie(movies[0].imdb);
+    console.log(firstFullDataMovie);
 
     this.setState({
       articles,

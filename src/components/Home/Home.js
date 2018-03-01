@@ -35,9 +35,16 @@ class Home extends Component {
   async componentDidMount() {
     const articles = await getArticles();
 
-    const movies = await searchMovies("matrix");
-    console.log(movies);
-    const firstFullDataMovie = await getMovie(movies[0].imdb);
+    //const movies = await searchMovies("matrix");
+    const movies = await searchMovies({
+      terms: "matrix", // Required string
+      //year: 1999, // optional number
+      page: 1 // optional number (1 - 100)
+      //type: "movie" // optional string ("series" || "movie" || "episode")
+    });
+    console.log("DEBUG", movies);
+    const firstFullDataMovie =
+      movies.length > 0 ? await getMovie(movies[0].imdb) : {};
     console.log(firstFullDataMovie);
 
     this.setState({

@@ -9,6 +9,7 @@ import {
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getArticles, searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
+import { TweenMax } from "gsap";
 import "./Home.css";
 
 const Fade = ({ children, ...props }) => (
@@ -26,21 +27,28 @@ class Home extends Component {
       movies: [],
       show: false
     };
+
+    // Tableau de référence des images.
+    this.refImages = [];
   }
 
   async componentDidMount() {
     const articles = await getArticles();
 
-    const movies = await searchMovies("matrix");
-    console.log(movies);
-    const firstFullDataMovie = await getMovie(movies[0].imdb);
-    console.log(firstFullDataMovie);
+    // const movies = await searchMovies("matrix");
+    // console.log(movies);
+    // const firstFullDataMovie = await getMovie(movies[0].imdb);
+    // console.log(firstFullDataMovie);
 
     this.setState({
       articles,
-      movies,
+      //movies,
       show: true
     });
+  }
+
+  animate(i) {
+    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
   }
 
   render() {
@@ -50,9 +58,10 @@ class Home extends Component {
         <div className="Home-intro">
           <div className="container">
             <TransitionGroup className="todo-list">
-              {articles.map(article => (
+              {articles.map((article, i) => (
                 <Fade key={article.id}>
                   <div className="Card">
+                    <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
                       <Link to={`/article/${article.id}`} className="Card-link">
                         <CardHeader
@@ -60,13 +69,15 @@ class Home extends Component {
                           subtitle="Web dev"
                           avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
                         />
-                        <CardMedia
-                          className="Card-media"
-                          style={{ backgroundImage: `url(${article.img})` }}
-                          overlay={<CardTitle title={article.title} />}
-                          overlayContentStyle={{ background: "transparent" }}
-                          overlayStyle={{ color: "#fff" }}
-                        />
+                        <div ref={img => (this.refImages[i] = img)}>
+                          <CardMedia
+                            className="Card-media"
+                            style={{ backgroundImage: `url(${article.img})` }}
+                            overlay={<CardTitle title={article.title} />}
+                            overlayContentStyle={{ background: "transparent" }}
+                            overlayStyle={{ color: "#fff" }}
+                          />
+                        </div>
                         <CardText>{article.excerpt}</CardText>
                       </Link>
                     </Card>

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Motion, spring } from "react-motion";
 
 const BlackBox = ({ reverseDirection = false }) => (
@@ -9,15 +8,12 @@ const BlackBox = ({ reverseDirection = false }) => (
         className="black-box"
         style={{
           transformOrigin: reverseDirection ? `left` : `right`,
+          transition: '0.3s',
           transform: `scaleX(${interpolatingStyle.scaleX})`
         }}
       />
     )}
   </Motion>
 );
-
-BlackBox.PropTypes = {
-  reverseDirection: PropTypes.bool
-};
 
 export default BlackBox;

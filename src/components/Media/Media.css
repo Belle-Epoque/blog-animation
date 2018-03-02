@@ -1,0 +1,149 @@
+.Media-single {
+  width: 100%;
+  animation: appear 1s;
+}
+
+@keyframes appear {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.Media-banner {
+  width: 100%;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.Media-Single-title {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0, 0.3);
+  font-size: 30px;
+  padding: 20px;
+  font-weight: lighter;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Media-container {
+  width: 90%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.Media-aside {
+  transform: translateY(-75px);
+  position: relative;
+  width: 15%;
+}
+
+.Media-content {
+  width: 70%;
+}
+
+.Media-score {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+.Media-score ul{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+}
+.Media-score ul li{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 15px 0;
+}
+
+.Media-poster {
+  min-height: 150px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.Media-poster img {
+  width: 100%;
+}
+
+.Media-Single-text {
+  width: 100%;
+  padding: 50px;
+}
+.Media-Single-text h3 {
+  text-align: left;
+}
+.Media-Single-text p {
+  text-align: left;
+  font-size: 16px;
+  line-height: calc(16px * 1.5);
+}
+.Media-awards li {
+  list-style: none;
+}
+.Media-awards li {
+  text-transform: capitalize;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  margin: 10px 0;
+}
+.Media-Single-info {
+  width: 100%;
+}
+.Media-Single-info ul{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+}
+.Media-Single-info ul li{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 15px 0;
+}
+
+.black-box {
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  position: fixed;
+  background: #fff;
+  transition: 0.3s;
+  transform-origin: right;
+}

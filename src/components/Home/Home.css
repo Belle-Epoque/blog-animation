@@ -2,49 +2,14 @@
   margin-top: 40px;
 }
 
-.Home-title {
-  font-size: 1.5em;
-}
-
-.Home-intro {
-  font-size: large;
-}
-
-@keyframes Home-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.Card {
-}
-
-.Card-media {
-  padding-top: 50%;
-  width: 100%;
-  background-position: center;
-  background-size: cover;
-}
-
-.Card-link {
-  text-decoration: none;
-  display: block;
-}
-
-.Card {
-  text-align: left;
-  margin-bottom: 50px;
-}
 .fade-enter {
   opacity: 0.01;
 }
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 800ms ease-in;
+  animation: movie 1s;
 }
 
 .fade-exit {
@@ -53,5 +18,113 @@
 
 .fade-exit.fade-exit-active {
   opacity: 0.01;
-  transition: opacity 800ms ease-in;
+  animation: movie 1s;
+}
+
+@keyframes movie {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.Media-link {
+  width: calc(100% / 4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  text-decoration: none;
+  overflow: hidden;
+}
+.Media {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.Media-image {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.Media-text {
+  width: 100%;
+  display: flex;
+  background: #ffffff;
+  flex-direction: column;
+  padding: 20px 0;
+}
+.Media-title {
+  font-size: 16px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.Media-year {
+  color: grey;
+  font-weight: lighter;
+  font-size: 14px;
+}
+.Media-type {
+  text-transform: capitalize;
+}
+
+.Filter-container {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 50px;
+}
+
+.Filter-title {
+  width: 45%;
+  border: 1px solid #eee;
+  padding: 0 5px;
+  height: 100%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  outline: none;
+}
+
+.Filter-year {
+  width: 10%;
+  border: 1px solid #eee;
+  padding: 0 5px;
+  height: 100%;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.Filter-year::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.Filter-type {
+  width: 15%;
+  border: 1px solid #eee;
+  padding: 0 5px;
+  height: 100%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  outline: none;
 }

@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { getArticles, searchMovies, getMovie } from "../../api/api";
+import { searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
 import "./Home.css";
@@ -23,77 +16,139 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      articles: [],
       movies: [],
-      show: false
+      page: 1,
     };
 
-    // Tableau de référence des images.
-    this.refImages = [];
   }
 
   async componentDidMount() {
-    const articles = await getArticles();
-
-    //const movies = await searchMovies("matrix");
-    const movies = await searchMovies({
-      terms: "matrix", // Required string
-      //year: 1999, // optional number
-      page: 1 // optional number (1 - 100)
-      //type: "movie" // optional string ("series" || "movie" || "episode")
+    let movies = await searchMovies({
+      terms: "star",
+      page: this.state.page
     });
-    console.log("DEBUG", movies);
-    const firstFullDataMovie =
-      movies.length > 0 ? await getMovie(movies[0].imdb) : {};
-    console.log(firstFullDataMovie);
 
     this.setState({
-      articles,
-      //movies,
-      show: true
+      movies: movies,
     });
+
+    window.addEventListener('scroll', this.handleScroll);
   }
 
-  animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    let _scrollTop    = document.documentElement.scrollTop,
+        _scrollHeight = document.documentElement.scrollHeight,
+        _wh           = window.innerHeight,
+        event         = Math.ceil(_scrollTop + _wh) >= _scrollHeight;
+
+    if (event) {
+      this.nextPage();
+    }
+  }
+
+  async handleContent(title = "star", year = null, type = null, search = true){
+    let movies = null;
+
+    if (search) {
+      this.setState({
+        page: 1
+      })
+    }
+
+    if (title || year || type) {
+      movies = await searchMovies({
+        terms: title ? title :"star",
+        year: year,
+        type: type,
+        page: this.state.page
+      });
+    } else {
+      movies = await searchMovies({
+        terms: "star",
+        page: this.state.page
+      });
+    }
+
+    if (movies) {
+      let allmovies;
+
+      if (this.state.page > 1) {
+        allmovies = this.state.movies.concat(movies);
+      } else {
+        allmovies = movies;
+      }
+
+      this.setState({
+        movies: allmovies,
+      });
+    }
+  }
+
+  nextPage = () => {
+    this.setState({
+      page: this.state.page + 1
+    })
+
+    this.handleContent(this.titleSearch.value, this.yearSearch.value, this.typeSearch.value, false);
   }
 
   render() {
-    const articles = this.state.articles;
+    const {
+      movies
+    } = this.state;
+
     return (
       <div className="Home">
-        <div className="Home-intro">
-          <div className="container">
-            <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
-                  <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
-                    <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
-                        <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
-                        />
-                        <div ref={img => (this.refImages[i] = img)}>
-                          <CardMedia
-                            className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
-                            overlayContentStyle={{ background: "transparent" }}
-                            overlayStyle={{ color: "#fff" }}
-                          />
-                        </div>
-                        <CardText>{article.excerpt}</CardText>
-                      </Link>
-                    </Card>
-                  </div>
-                </Fade>
-              ))}
-            </TransitionGroup>
-          </div>
+        <div className="Filter-container">
+            <input
+              placeholder={'Title'}
+              className="Filter-title"
+              type="text"
+              ref={(title) => { this.titleSearch = title; }}
+              onChange={() => this.handleContent(this.titleSearch.value, this.yearSearch.value, this.typeSearch.value) }/>
+            <input
+              placeholder={'Year'}
+              className="Filter-year"
+              type="number"
+              ref={(year) => { this.yearSearch = year; }}
+              onChange={() => this.handleContent(this.titleSearch.value, this.yearSearch.value, this.typeSearch.value) }/>
+            <select
+              className="Filter-type"
+              required="false"
+              name="filter_type"
+              ref={(type) => { this.typeSearch = type; }}
+              onChange={() => this.handleContent(this.titleSearch.value, this.yearSearch.value, this.typeSearch.value) }>
+              <option value="" defaultValue="selected"> - Any - </option>
+              <option value="series">Serie</option>
+              <option value="movie">Film</option>
+            </select>
         </div>
+          <TransitionGroup className="container">
+          {movies.map((movie, i) => (
+            <Fade key={movie.imdb}>
+            <Link to={`/media/${movie.imdb}`} className="Media-link">
+              <div className="Media">
+                <div style={{ backgroundImage: `url(${movie.poster})` }} className="Media-image"></div>
+                <div className="Media-text">
+                  <h2 className="Media-title">
+                    {movie.title}
+                  </h2>
+                  <span className="Media-year">
+                    { (movie.year && (movie.year.from || movie.year.to)) ? `${movie.year.from} - ${movie.year.to}`: movie.year }
+                  </span>
+                  <span className="Media-type">
+                    {movie.type}
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </Fade>
+          ))}
+        </TransitionGroup>
       </div>
     );
   }

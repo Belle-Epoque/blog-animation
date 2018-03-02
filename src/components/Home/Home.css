@@ -1,13 +1,15 @@
 .Home {
-  margin-top: 40px;
+  padding-bottom: 2rem;
 }
 
 .Home-title {
   font-size: 1.5em;
 }
 
-.Home-intro {
-  font-size: large;
+.Home__main {
+  width: 90%;
+  margin: 0 auto 2rem auto;
+  border-bottom: 1px solid #ddd;
 }
 
 @keyframes Home-logo-spin {
@@ -54,4 +56,99 @@
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
+}
+
+/**
+ * SEARCHBAR */
+
+.Searchbar {
+  margin: 1.5rem 0 2.5rem;
+}
+
+.Searchbar__title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.Searchbar__field {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.Searchbar__input {
+  width: 60%;
+  font-size: 22px;
+  font-weight: 300;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #ddd;
+  background: none;
+  padding: 5px 0;
+  margin-right: 10px;
+  outline: none;
+}
+
+.Searchbar__query {
+  margin-top: 1.5rem;
+
+}
+
+/**
+ * FILTERS */
+
+.Filters {
+  padding: 1.5rem 0;
+  background: #eee;
+  margin-bottom: 3rem;
+}
+
+.Filters__clear-button {
+  opacity: 0.75;
+}
+
+/**
+ * CARDS */
+
+.Card-All {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.Card {
+  width: 31%;
+}
+
+/**
+ * PAGINATION */
+
+ .Pagination {
+   width: 90%;
+   margin: 0 auto;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+ }
+
+ .Pagination__current {
+  font-size: 1.5rem;
+  font-weight: 300;
+ }
+
+ .Pagination__button {
+  cursor: pointer;
+ }
+
+ .Pagination__button.not-visible {
+   visibility: hidden;
+ }
+
+ /**
+  * TAG */
+
+.Tag {
+  background: #eee;
+  padding: 5px 10px;
 }

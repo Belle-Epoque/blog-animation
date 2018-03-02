@@ -4,6 +4,8 @@ import Router from "./Router/Router";
 import "./App.css";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
+
+
 class App extends Component {
 	render() {
 		return (
@@ -11,6 +13,7 @@ class App extends Component {
 				<div className="App">
 					<Header />
 					<Router />
+					
 				</div>
 			</MuiThemeProvider>
 		);

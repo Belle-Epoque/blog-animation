@@ -1,9 +1,11 @@
 .Article-img {
-  height: calc(100vh - 64px);
+  height: 250px !important;
+  background-position-y: -120px !important;
   width: 100%;
   background-position: center;
   background-size: cover;
   position: relative;
+ 
 }
 
 .black-box {
@@ -14,12 +16,27 @@
 }
 
 .Article-body {
+  width: 500px;
+  margin: 0 auto;
   margin-top: 30px;
+  
 }
 
 .Article-title {
+  text-decoration: underline;
+  font-weight: bold;
   font-size: 1.4rem;
-  font-weight: 400;
-  text-transform: upeprcase;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+.Article-acteurs {
+  margin-top: 30px;
+  line-height: 140%;
+}
+.Article-award {
+  line-height: 140%;
+}
+.Article-resum {
+  line-height: 140%;
   margin-bottom: 30px;
 }

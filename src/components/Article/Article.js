@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { getArticle } from "../../api/api";
+import { getMovie } from "../../api/api";
 import BlackBox from "./BlackBox.js";
 import "./Article.css";
 
@@ -7,7 +7,10 @@ class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {}
+      article: {},
+      movie: {
+          awards: []
+      }
     };
   }
 
@@ -22,25 +25,27 @@ class Article extends Component {
     }
   }
 
-  async refreshSingleArticle(articleId) {
-    const filterArticle = await getArticle(articleId);
+  async refreshSingleArticle(movieImdb) {
+    const filterMovie = await getMovie(movieImdb);
+    console.log(filterMovie)
 
-    if (!filterArticle) {
+    // if (!filterArticle) {
+    if (!filterMovie) {
       // This article doesn't exist.
       return;
     }
 
     this.setState({
-      article: filterArticle
+      movie: filterMovie
     });
   }
 
   render() {
-    const { article: { title, body, img } } = this.state;
+    const { movie: { title, poster, actors, plot, awards } } = this.state;
 
     return (
       <Fragment>
-        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
+        <div className="Article-img" style={{ backgroundImage: `url(${poster})` }}>
           <BlackBox reverseDirection={false} />
           <BlackBox reverseDirection={true} />
           <BlackBox reverseDirection={false} />
@@ -49,7 +54,10 @@ class Article extends Component {
         <div className="container">
           <div className="Article-body">
             <h1 className="Article-title">{title}</h1>
-            <p>{body}</p>
+            <p className="Article-acteurs"><b>Acteurs :</b><br />{ actors}</p><br />
+            <p className="Article-award"><b>Récompenses :</b><br />{awards.text}</p><br />
+            <p className="Article-resum"><b>Synopsis :</b><br />{plot}</p>
+            <img src={poster} className="Article-img2"/><br />
           </div>
         </div>
       </Fragment>

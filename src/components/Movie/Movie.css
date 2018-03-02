@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900i');
+
+
+.Movie-img {
+
+    height: calc(100vh - 64px);
+    margin: 0 auto;
+    width: 50%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+  }
+  
+
+
+  
+.containerMajor{
+  display: flex;
+  flex-direction: row;
+
+}
+
+  .black-box {
+    width: 100%;
+    height: 25%;
+    background: rgb(0, 0, 255);
+    transform-origin: right;
+  }
+  
+  .Movie-body {
+    margin-top: 4em;
+  }
+  
+  .Movie-title {
+    font-family: 'Raleway';
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  

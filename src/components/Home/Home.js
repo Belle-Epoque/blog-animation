@@ -14,7 +14,7 @@ import { searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
 
-import CardMovie from "./CardMovie/CardMovie";
+import Pagination from "./Pagination/Pagination";
 import "./Home.css";
 
 const Fade = ({ children, ...props }) => (
@@ -37,10 +37,10 @@ class Home extends Component {
       filter: {},
       page: 1,
       search: "",
+      current: "matrix",
       show: false
     };
 
-    // Tableau de référence des images.
     this.refImages = [];
     this.searchInput = null;
   }
@@ -56,17 +56,10 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
-      terms: "matrix", // Required string
-      //year: 1999, // optional number
-      page: this.state.page // optional number (1 - 100)
-      //type: "movie" // optional string ("series" || "movie" || "episode")
+      terms: this.state.current,
+      page: this.state.page
     });
-
-    // const firstFullDataMovie =
-    //   movies.length > 0 ? await getMovie(movies[0].imdb) : {};
-    // console.log(firstFullDataMovie);
 
     let types = movies.map((element) => { return element.type; })
     types = types.filter((elem, pos) => { return types.indexOf(elem) == pos; });
@@ -78,10 +71,6 @@ class Home extends Component {
     }); 
   }
 
-  animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
-  }
-
   /**
    * FILTERS
    */
@@ -91,7 +80,6 @@ class Home extends Component {
 
     if (filter === this.state.filter.currentFilter) {
       this.clearFilter(e);
-
       return;
     }
 
@@ -123,6 +111,8 @@ class Home extends Component {
     e.preventDefault();
 
     if (!this.searchInput.value.length) {
+      const movies = await searchMovies({ terms: "matrix" });
+      this.setState({ movies, search: "" })
       return;
     }
 
@@ -148,7 +138,7 @@ class Home extends Component {
     const page = this.state.page - 1;
 
     const movies = await searchMovies({
-      terms: "matrix",
+      terms: this.state.current,
       page: page
     });
 
@@ -160,7 +150,7 @@ class Home extends Component {
     const page = this.state.page + 1;
 
     const movies = await searchMovies({
-      terms: "matrix",
+      terms: this.state.current,
       page: page
     });
 
@@ -176,8 +166,6 @@ class Home extends Component {
     } else {
       movies = this.state.movies;
     }
-
-    console.log(filters);
     
     return (
       <div className="Home">
@@ -186,15 +174,15 @@ class Home extends Component {
           <div className="Searchbar">
             <h3 className="Searchbar__title">Rechercher un film en particulier ?</h3>
             <div className="Searchbar__field">
-              <input type="text" placeholder="Votre film" className="Searchbar__input" ref={(input) => this.searchInput = input}/>
-      
+              <input type="text" placeholder="Votre film" className="Searchbar__input" ref={(input) => this.searchInput = input} onChange={(e) => this.searchMovie(e)}/>
               <RaisedButton onClick={(e) => this.searchMovie(e)}  label="Rechercher"/>
             </div>
             {
               this.state.search &&
-              <div className="Searchbar__query">Vos résultats pour votre recherche <strong>{this.state.search}</strong><span>Rechercher autre chose</span></div>
+              <div className="Searchbar__query">Vos résultats pour votre recherche <strong>{this.state.search}</strong></div>
             }
           </div>
+          
           <div className="Filters">
           {
             filters.allFilters.map((filter, i) => {
@@ -203,7 +191,6 @@ class Home extends Component {
               );
             })
           }
-
           <RaisedButton onClick={(e) => this.clearFilter(e)} label="clear filters" 
           className="Filters__clear-button"/>
           </div>
@@ -212,7 +199,6 @@ class Home extends Component {
                 return (
                   <Fade key={movie.imdb}>
                   <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
                       <Link to={`/movie/${movie.imdb}`} className="Card-link">
                         <div ref={img => (this.refImages[i] = img)}>
@@ -225,7 +211,6 @@ class Home extends Component {
                         </div>
                       </Link>
                       <CardTitle>{movie.title}</CardTitle>
-                      <CardText>Type: {movie.type}</CardText>
                     </Card>
                   </div>
                 </Fade>
@@ -236,16 +221,11 @@ class Home extends Component {
           </div>
         </div>
 
-        <div className="Pagination">
-            <RaisedButton onClick={(e) => this.goPreviousPage(e)} className={"Pagination__button " + (this.state.page < 2 ? "not-visible" : "")} label={"Aller à la page " + (this.state.page - 1)} />
-
-          <p className="Pagination__current">{this.state.page}</p>
-
-          {
-            this.state.page < 100 &&
-            <RaisedButton onClick={(e) => this.goNextPage(e)} className="Pagination__button" label={"Aller à la page " + (this.state.page +1)} />
-          }
-        </div>
+        <Pagination
+          handleGoPreviousPage={(e) => this.goPreviousPage(e)}
+          handleGoNextPage={(e) => this.goNextPage(e)}
+          page={this.state.page}
+        />
 
       </div>
     );

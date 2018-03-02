@@ -2,6 +2,10 @@
   padding-bottom: 2rem;
 }
 
+.Home .container {
+  width: 100%;
+}
+
 .Home-title {
   font-size: 1.5em;
 }

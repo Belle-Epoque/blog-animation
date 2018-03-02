@@ -31,10 +31,15 @@ class Movie extends Component {
     this.setState({
       movie: filterMovie
     });
+
+    console.log(this.state.movie);
   }
 
   render() {
-    const { movie: { title, poster } } = this.state;
+    const { movie: { title, poster, actors, director, genres } } = this.state;
+
+    console.log(genres);
+
 
     return (
       <Fragment>
@@ -47,6 +52,10 @@ class Movie extends Component {
         <div className="container">
           <div className="Article-body">
             <h1 className="Article-title">{title}</h1>
+            <p><strong>Direction :</strong> {director}</p>
+            <p><strong>Genres :</strong> 
+  
+            </p>
           </div>
         </div>
       </Fragment>

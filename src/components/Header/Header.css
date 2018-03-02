@@ -7,6 +7,10 @@
 
 .AppBar h1 {
   color: #FF0000 !important;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700 !important;
+  font-size: 30px !important;
 }
 
 .AppBar {

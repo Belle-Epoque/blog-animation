@@ -1,10 +1,11 @@
 import React, {Component} from "react";
+import TextField from 'material-ui/TextField';
 import {
     Card,
     CardHeader,
     CardMedia,
     CardTitle,
-    CardText
+    CardText,
 } from "material-ui/Card";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {getArticles, searchMovies, getMovie} from "../../api/api";
@@ -23,11 +24,32 @@ class Home extends Component {
         super(props);
 
         this.state = {
-            movies: []
+            movies: [],
+            searchName: 'music'
         };
 
         // Tableau de référence des images.
         this.refImages = [];
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            searchName: event.target.value,
+        });
+    };
+
+    async getMovieDetailled(movie) {
+        const movieDetailled = await getMovie(movie.imdb);
+        return {
+            ...movie,
+            ...movieDetailled
+        };
+    }
+
+    async getMoviesDetailled(movies) {
+        return await Promise.all(
+            movies.map(async movie => await this.getMovieDetailled(movie))
+        );
     }
 
     async componentDidMount() {
@@ -35,21 +57,15 @@ class Home extends Component {
         const articles = await getArticles();
 
         const movies = await searchMovies({
-            terms: "The godfather", // Required string
-            //year: 1999, // optional number
-            page: 1 // optional number (1 - 100)
-            //type: "movie" // optional string ("series" || "movie" || "episode")
+            terms: this.state.searchName,
+            page: 1
         });
         console.log("DEBUG", movies);
-        const firstFullDataMovie =
-            movies.length > 0 ? await getMovie(movies[0].imdb) : {};
+        const firstFullDataMovie = movies.length > 0 ? await getMovie(movies[0].imdb) : {};
         console.log(firstFullDataMovie);
 
-
-        const moviesDetails = await movies.map(async (movie) => (
-            await getMovie(movie.imdb)
-        ));
-        console.log(moviesDetails);
+        const moviesDetailled = await this.getMoviesDetailled(movies);
+        console.log(moviesDetailled);
 
         this.setState({
             articles,
@@ -57,13 +73,18 @@ class Home extends Component {
             show: true
         });
     }
-
     render() {
-        const articles = this.state.articles;
+
         const movies = this.state.movies;
 
         return (
             <div className="Home">
+                {this.state.searchName}
+                <TextField
+                    className="searchbar"
+                    value={this.state.searchName}
+                    onChange={this.handleChange}
+                />
                 <div className="Home-intro">
                     <div className="container">
                         <div>
@@ -79,13 +100,14 @@ class Home extends Component {
                                             <Link to={`/movie/${movie.imdb}`} className="Card-link">
                                                 <div ref={img => (this.refImages[i] = img)}>
                                                     <div className="cardInfos">
-                                                        <p>{movie.title}</p>
-                                                        <p>{movie.year.toString()}</p>
+                                                        <p>
+                                                            <div>{movie.title}</div>
+                                                            <div>{movie.year.toString()}</div>
+                                                        </p>
                                                     </div>
                                                     <CardMedia
                                                         className="Card-media"
                                                         style={{backgroundImage: `url(${movie.poster})`}}
-                                                        overlay={<CardTitle title={movie.title}/>}
                                                         overlayContentStyle={{background: "transparent"}}
                                                         overlayStyle={{color: "#fff"}}
                                                     />

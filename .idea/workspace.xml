@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8fd482a9-136d-46a0-b7bb-55c8b3522175" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/Movie/Movie.js" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" afterPath="$PROJECT_DIR$/src/App.css" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
-      <change beforePath="$PROJECT_DIR$/src/Router/Router.js" afterPath="$PROJECT_DIR$/src/Router/Router.js" />
-      <change beforePath="$PROJECT_DIR$/src/api/omdb.js" afterPath="$PROJECT_DIR$/src/api/omdb.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Article/Article.css" afterPath="$PROJECT_DIR$/src/components/Movie/Movie.css" />
-      <change beforePath="$PROJECT_DIR$/src/components/Article/Article.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/components/Article/BlackBox.js" afterPath="$PROJECT_DIR$/src/components/Movie/BlackBoxMovie.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.css" afterPath="$PROJECT_DIR$/src/components/Header/Header.css" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.js" afterPath="$PROJECT_DIR$/src/components/Header/Header.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Home.css" afterPath="$PROJECT_DIR$/src/components/Home/Home.css" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Home.js" afterPath="$PROJECT_DIR$/src/components/Home/Home.js" />
-    </list>
+    <list default="true" id="8fd482a9-136d-46a0-b7bb-55c8b3522175" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -292,12 +279,12 @@
       <option name="presentableId" value="Default" />
       <updated>1519918231560</updated>
       <workItem from="1519918233293" duration="1003000" />
-      <workItem from="1519978256623" duration="10431000" />
+      <workItem from="1519978256623" duration="10507000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11434000" />
+    <option name="totallyTimeSpent" value="11510000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="972" extended-state="0" />

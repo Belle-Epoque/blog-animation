@@ -35,14 +35,14 @@ class Home extends Component {
   async componentDidMount() {
     const articles = await getArticles();
 
-    const movies = await searchMovies("matrix");
+    const movies = await searchMovies("marvel");
     console.log(movies);
     const firstFullDataMovie = await getMovie(movies[0].imdb);
     console.log(firstFullDataMovie);
 
     this.setState({
       articles,
-      //movies,
+      movies,
       show: true
     });
   }
@@ -52,18 +52,18 @@ class Home extends Component {
   }
 
   render() {
-    const articles = this.state.articles;
+    const movies = this.state.movies;
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
             <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+              {movies.map((movie, i) => (
+                <Fade key={movie.imdb}>
                   <div className="Card">
                     <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
+                      <Link to={`/movie/${movie.imdb}`} className="Card-link">
                         <CardHeader
                           title="Bob"
                           subtitle="Web dev"
@@ -72,13 +72,13 @@ class Home extends Component {
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
+                            style={{ backgroundImage: `url(${movie.poster})` }}
+                            overlay={<CardTitle title={movie.title} />}
                             overlayContentStyle={{ background: "transparent" }}
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{article.excerpt}</CardText>
+                        <CardText>{movie.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>

@@ -3,7 +3,7 @@ import omdb from "omdb";
 // See https://github.com/Belle-Epoque/omdb API.
 
 // Generates your free api key here: http://www.omdbapi.com/apikey.aspx.
-const OMDB_API_KEY = "ed47c9da";
+const OMDB_API_KEY = "9d3a4db5";
 
 const OMDB_DEFAULT_OPTIONS = {
   fullPlot: true,

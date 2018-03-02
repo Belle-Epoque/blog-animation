@@ -1,13 +1,18 @@
 import React, { Component, Fragment } from "react";
 import { getArticle } from "../../api/api";
+import { getMovie } from "../../api/api";
 import BlackBox from "./BlackBox.js";
+import { TweenMax } from "gsap";
 import "./Article.css";
 
 class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {}
+      article: {},
+      movie: {
+          awards: []
+      }
     };
   }
 
@@ -22,34 +27,45 @@ class Article extends Component {
     }
   }
 
-  async refreshSingleArticle(articleId) {
-    const filterArticle = await getArticle(articleId);
+  async refreshSingleArticle(movieImdb) {
+    const filterMovie = await getMovie(movieImdb);
+    console.log(filterMovie)
 
-    if (!filterArticle) {
+    if (!filterMovie) {
       // This article doesn't exist.
       return;
     }
 
     this.setState({
-      article: filterArticle
+      movie: filterMovie
     });
   }
 
+  animate() {
+    TweenMax.to(this.refTitle, 2, { color: 'red' });
+  }
+
   render() {
-    const { article: { title, body, img } } = this.state;
+    const { movie: { title, poster, actors, plot, awards } } = this.state;
 
     return (
       <Fragment>
-        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-        </div>
         <div className="container">
           <div className="Article-body">
-            <h1 className="Article-title">{title}</h1>
-            <p>{body}</p>
+              <div className="containImg" style={{ backgroundImage: `url(${poster})` }}>
+                  <BlackBox reverseDirection={false} />
+                  <BlackBox reverseDirection={true} />
+                  <BlackBox reverseDirection={false} />
+                  <BlackBox reverseDirection={true} />
+              </div>
+             <div className="containInfo">
+                 <button onClick={() => this.animate()}>Mon film</button>
+                <h1 className="Article-title"
+                    ref={label => {this.refTitle = label}}>{title}</h1>
+                <p className="pArticle">With: <span className="span">{actors}</span></p>
+                <p className="pArticle pArticleAwards">{awards.text}</p>
+                <p className="pArticleLeft"><strong>Résumé:</strong> {plot}</p>
+            </div>
           </div>
         </div>
       </Fragment>

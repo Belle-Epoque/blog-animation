@@ -14,12 +14,42 @@
 }
 
 .Article-body {
-  margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    margin: 60px 0;
 }
 
 .Article-title {
   font-size: 1.4rem;
-  font-weight: 400;
-  text-transform: upeprcase;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
   margin-bottom: 30px;
+}
+
+.containInfo{
+    width: 50%;
+}
+
+.containImg{
+    width: 40%;
+    background-repeat: no-repeat;
+}
+
+.pArticle{
+    padding: 10px 0;
+}
+
+.pArticleLeft{
+    padding-top: 30px;
+    text-align: left;
+    line-height: 24px;
+}
+
+.pArticleAwards{
+    font-style: italic;
+}
+
+.span{
+    text-transform: capitalize;
 }

@@ -8,8 +8,6 @@
 
 .Home-intro {
   font-size: large;
-  background: #fff;
-  margin-top: 50px;
 }
 
 @keyframes Home-logo-spin {
@@ -19,47 +17,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.FilterWrapper{
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px 0;
-    padding: 30px 90px;
-    background: #F2F3F4;
-}
-
-.p{
-    width: 20%;
-    text-align: left;
-}
-
-.p, .label{
-    font-size: 16px;
-    font-weight: 400;
-    margin-bottom: 20px;
-}
-
-.advancedSearch{
-    flex-basis: 100%;
-    text-align: left;
-}
-
-.label, .input, .select{
-    display: inline-block;
-    width: 20%;
-    padding: 5px 0;
-}
-
-.input{
-    margin-right: 10px;
-    width: 200px;
-    height:20px;
-    padding-left: 5px;
-    background: none;
-    color: #000;
-    border: none;
-    border-bottom: 1px solid gray;
 }
 
 .Card {

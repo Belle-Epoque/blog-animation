@@ -2,12 +2,29 @@
   margin-top: 40px;
 }
 
+.AppBar {
+  background-image: linear-gradient(-225deg, #65379B 0%, #886AEA 53%, #6457C6 100%) !important;
+  padding: 20px;
+}
+
+button {
+  background-color: white;
+  padding: 10px;
+  width: 100px;
+  border-radius: 2px;
+  border: none;
+  margin-bottom: 5px;
+  font-size: 13px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+}
+
 .Home-title {
   font-size: 1.5em;
 }
 
 .Home-intro {
   font-size: large;
+  margin-top: 5%;
 }
 
 @keyframes Home-logo-spin {
@@ -19,8 +36,6 @@
   }
 }
 
-.Card {
-}
 
 .Card-media {
   padding-top: 50%;
@@ -37,7 +52,12 @@
 .Card {
   text-align: left;
   margin-bottom: 50px;
+  width: 40%;
+  display: inline-block;
+  margin: 20px;
+  margin-bottom: 60px;
 }
+
 .fade-enter {
   opacity: 0.01;
 }
@@ -54,4 +74,10 @@
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
+}
+
+@media screen and (max-width: 800px) {
+  .Card {
+    width: auto;
+  }
 }

@@ -37,7 +37,7 @@ class Home extends Component {
 
     //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
-      terms: "matrix", // Required string
+      terms: "lord of the rings", // Required string
       //year: 1999, // optional number
       page: 1 // optional number (1 - 100)
       //type: "movie" // optional string ("series" || "movie" || "episode")
@@ -48,8 +48,8 @@ class Home extends Component {
     console.log(firstFullDataMovie);
 
     this.setState({
-      articles,
-      //movies,
+      // articles,
+      movies,
       show: true
     });
   }
@@ -59,33 +59,33 @@ class Home extends Component {
   }
 
   render() {
-    const articles = this.state.articles;
+    const movies = this.state.movies;
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
             <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+              {movies.map((movies, i) => (
+                <Fade key={movies.imdb}>
                   <div className="Card">
                     <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
+                      <Link to={`/movies/${movies.imdb}`} className="Card-link">
                         <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
+                          title={movies.title}
+                          subtitle={movies.year}
                           avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
                         />
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
+                            style={{ backgroundImage: `url(${movies.poster})` }}
+                            overlay={<CardTitle title={movies.title} />}
                             overlayContentStyle={{ background: "transparent" }}
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{article.excerpt}</CardText>
+                        <CardText>{movies.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>

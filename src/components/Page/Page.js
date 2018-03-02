@@ -1,39 +1,45 @@
 import React, { Component, Fragment } from "react";
-import Transition from "react-transition-group/Transition";
-import RaisedButton from "material-ui/RaisedButton";
+import { getMovie } from "../../api/api";
+
 import "./Page.css";
 
-class Page extends Component {
+class Movies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      enterAnimation: false
+      movies: {}
     };
   }
 
-  fade() {
+  async componentDidMount() {
+    const filterMovies = await getMovie(this.props.match.params.number);
+    // this.refreshSingleMovies(this.props.match.params.number);
+    console.log(filterMovies);
     this.setState({
-      enterAnimation: !this.state.enterAnimation
+      movies: filterMovies
     });
   }
+
+
+
   render() {
+    const { movies } = this.state;
+    console.log(movies);
+
     return (
       <Fragment>
-        <RaisedButton
-          onClick={() => this.fade()}
-          primary={true}
-          label="Animate"
-        />
-        <Transition timeout={300} in={this.state.enterAnimation}>
-          {state => (
-            <div className={`fade fade-${state}`}>
-              <h1>test</h1>
-            </div>
-          )}
-        </Transition>
+        <div className="Article-img" style={{ backgroundImage: `url(${movies.poster})`  }}>
+        </div>
+        <div className="container">
+          <div className="Article-body">
+            <h1 className="Article-title">{movies.title}</h1>
+            <p className="Article-plot">{movies.plot}</p>
+            <p className="Article-actors">Directors : {movies.director}</p>
+          </div>
+        </div>
       </Fragment>
     );
   }
 }
 
-export default Page;
+export default Movies;

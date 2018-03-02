@@ -1,9 +1,10 @@
 .Article-img {
-  height: calc(100vh - 64px);
-  width: 100%;
-  background-position: center;
-  background-size: cover;
-  position: relative;
+    width: 550px;
+    height: 550px;
+    display: block;
+    margin: auto;
+    background-size: cover;
+    margin-top: 50px;
 }
 
 .black-box {

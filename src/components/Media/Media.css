@@ -1,6 +1,6 @@
 .Media-single {
   width: 100%;
-  animation: appear 1s;
+  /* animation: appear 1s; */
 }
 
 @keyframes appear {
@@ -145,5 +145,15 @@
   position: fixed;
   background: #fff;
   transition: 0.3s;
-  transform-origin: right;
+}
+.Listing {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex-direction: column; */
+}
+.Listing li{
+  width: auto !important;
+  margin: 0 10px !important;
 }

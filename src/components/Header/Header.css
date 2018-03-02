@@ -9,6 +9,16 @@
 .AppBar {
   position: fixed !important;
   top: 0;
+  background-color: rgb(59, 60, 60) !important;
+}
+.AppBar h1 {
+  color: #EFB901 !important;
+  text-transform: uppercase !important;
+  font-weight: bold !important;
+}
+
+.AppBar button {
+  display: none !important;
 }
 
 .active {

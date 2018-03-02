@@ -10,6 +10,7 @@
   font-size: large;
 }
 
+
 @keyframes Home-logo-spin {
   from {
     transform: rotate(0deg);
@@ -20,10 +21,27 @@
 }
 
 .Card {
+  display: inline-block;
+  width: 28%;
+  height: 600px;
+  margin: 20px;
+  transition-duration: .4s;
 }
+.Card:hover {
+  transform: scale(1.1);
+  transition-property: transform;
+  transition-duration: .4s;
+}
+@media screen and (max-width: 1024px) {
+  .Card {
+    width: 90%;
+  }
+}
+
 
 .Card-media {
   padding-top: 50%;
+  height: 200px;
   width: 100%;
   background-position: center;
   background-size: cover;
@@ -36,7 +54,6 @@
 
 .Card {
   text-align: left;
-  margin-bottom: 50px;
 }
 .fade-enter {
   opacity: 0.01;

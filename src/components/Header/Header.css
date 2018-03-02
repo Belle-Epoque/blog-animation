@@ -9,6 +9,7 @@
 .AppBar {
   position: fixed !important;
   top: 0;
+  background-color: red;
 }
 
 .active {

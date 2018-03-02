@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardMedia,
   CardTitle,
-  CardText
+  // CardText
 } from "material-ui/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getArticles, searchMovies, getMovie } from "../../api/api";
@@ -23,7 +23,6 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      articles: [],
       movies: [],
       show: false
     };
@@ -33,16 +32,15 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const articles = await getArticles();
+    // const articles = await getArticles();
 
-    const movies = await searchMovies("matrix");
-    console.log(movies);
-    const firstFullDataMovie = await getMovie(movies[0].imdb);
-    console.log(firstFullDataMovie);
+    const movies = await searchMovies("Saw");
+
+
+
 
     this.setState({
-      articles,
-      //movies,
+      movies,
       show: true
     });
   }
@@ -52,33 +50,31 @@ class Home extends Component {
   }
 
   render() {
-    const articles = this.state.articles;
+    const movies = this.state.movies;
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
             <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+              {movies.map((movies, i) => (
+                <Fade key={movies.imdb}>
                   <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
-                        <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
-                        />
+                      <Link to={`/movies/${movies.imdb}`} className="Card-link">
+                      <CardHeader
+                        title = {movies.title}
+                        subtitle= {movies.year}
+                      />
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
+                            style={{ backgroundImage: `url(${movies.poster})` }}
+                            // overlay={<CardTitle title={movies.title} />}
                             overlayContentStyle={{ background: "transparent" }}
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{article.excerpt}</CardText>
+
                       </Link>
                     </Card>
                   </div>

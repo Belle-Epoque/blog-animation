@@ -18,25 +18,36 @@
     transform: rotate(360deg);
   }
 }
-
+.todo-list{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
 .Card {
 }
 
 .Card-media {
-  padding-top: 50%;
+  padding-top: 100%;
   width: 100%;
   background-position: center;
   background-size: cover;
+  height: 100%;
 }
 
 .Card-link {
   text-decoration: none;
   display: block;
+  height: 300px;
 }
 
 .Card {
   text-align: left;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
+  width: 250px;
+  margin-right: 5px;
+  margin-left: 5px;
+
 }
 .fade-enter {
   opacity: 0.01;

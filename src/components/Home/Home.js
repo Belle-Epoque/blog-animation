@@ -1,102 +1,157 @@
-import React, { Component } from "react";
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { getArticles, searchMovies, getMovie } from "../../api/api";
-import { Link } from "react-router-dom";
-import { TweenMax } from "gsap";
-import "./Home.css";
+import React, { Component } from 'react';
+import { Card, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { searchMovies, getMovie } from '../../api/api';
+import { Link } from 'react-router-dom';
+import { TweenMax } from 'gsap';
+import './Home.css';
+import { log } from 'util';
 
 const Fade = ({ children, ...props }) => (
-  <CSSTransition {...props} timeout={3000} classNames="fade">
-    {children}
-  </CSSTransition>
+	<CSSTransition {...props} timeout={3000} classNames="fade">
+		{children}
+	</CSSTransition>
 );
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      articles: [],
-      movies: [],
-      show: false
-    };
+		this.state = {
+			movies: [],
+			show: false,
+		};
 
-    // Tableau de référence des images.
-    this.refImages = [];
-  }
+		// Tableau de référence des images.
+		this.refImages = [];
+	}
 
-  async componentDidMount() {
-    const articles = await getArticles();
+	async componentDidMount() {
+		//const movies = await searchMovies("matrix");
 
-    //const movies = await searchMovies("matrix");
-    const movies = await searchMovies({
-      terms: "matrix", // Required string
-      //year: 1999, // optional number
-      page: 1 // optional number (1 - 100)
-      //type: "movie" // optional string ("series" || "movie" || "episode")
-    });
-    console.log("DEBUG", movies);
-    const firstFullDataMovie =
-      movies.length > 0 ? await getMovie(movies[0].imdb) : {};
-    console.log(firstFullDataMovie);
+		const movies = await searchMovies({
+			terms: 'harry', // Required string
+			page: 1, // optional number (1 - 100)
+		});
 
-    this.setState({
-      articles,
-      //movies,
-      show: true
-    });
-  }
+		await this.setState({
+			movies: movies,
+		});
 
-  animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
-  }
+		window.addEventListener('scroll', this.handleScroll);
+	}
 
-  render() {
-    const articles = this.state.articles;
-    return (
-      <div className="Home">
-        <div className="Home-intro">
-          <div className="container">
-            <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
-                  <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
-                    <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
-                        <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
-                        />
-                        <div ref={img => (this.refImages[i] = img)}>
-                          <CardMedia
-                            className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
-                            overlayContentStyle={{ background: "transparent" }}
-                            overlayStyle={{ color: "#fff" }}
-                          />
-                        </div>
-                        <CardText>{article.excerpt}</CardText>
-                      </Link>
-                    </Card>
-                  </div>
-                </Fade>
-              ))}
-            </TransitionGroup>
-          </div>
-        </div>
-      </div>
-    );
-  }
+	animate(i) {
+		TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+	}
+
+	handleScroll = () => {
+		if (
+			document.documentElement.scrollHeight - document.documentElement.scrollTop ===
+			document.documentElement.clientHeight
+		) {
+			this.setState({ page: this.state.page + 1 });
+			this.handleSearch(this.titleSearch.value, this.yearSearch.value, this.catSearch.value);
+		}
+	};
+
+	async handleSearch(title = 'harry', year = 0, cat = null) {
+		let movies = null;
+
+		if (title || year || cat) {
+			movies = await searchMovies({
+				terms: title ? title : 'harry',
+				year: year,
+				cat: cat,
+				page: this.state.page,
+			});
+		} else {
+			movies = await searchMovies({
+				terms: 'harry',
+				page: this.state.page,
+			});
+		}
+
+		if (movies) {
+			let loadAll;
+
+			if (this.state.page > 1) {
+				loadAll = this.state.movies.concat(movies);
+			} else {
+				loadAll = movies;
+			}
+
+			this.setState({
+				movies: loadAll,
+			});
+		}
+	}
+
+	render() {
+		const { movies } = this.state;
+
+		return (
+			<div className="Home">
+				<div>
+					<input
+						className="Home-globalSearch"
+						placeholder="Rechercher un film..."
+						type="text"
+						ref={title => {
+							this.titleSearch = title;
+						}}
+						onChange={() =>
+							this.handleSearch(this.titleSearch.value, this.yearSearch.value, this.catSearch.value)
+						}
+					/>
+				</div>
+				<select
+					className="Home-catSearch"
+					onChange={() => this.handleSearch(this.yearSearch.value, this.catSearch.value)}
+					ref={cat => {
+						this.catSearch = cat;
+					}}
+				>
+					<option value="" defaultValue="selected">
+						Catégorie
+					</option>
+					<option value="series">Serie</option>
+					<option value="movie">Film</option>
+				</select>
+
+				<input
+					placeholder="2000"
+					className="Home-yearSearch"
+					type="number"
+					ref={year => {
+						this.yearSearch = year;
+					}}
+					onChange={() =>
+						this.handleSearch(this.titleSearch.value, this.yearSearch.value, this.catSearch.value)
+					}
+				/>
+
+				<div className="wrapper">
+					<TransitionGroup className="movies">
+						{movies.map((movie, i) => (
+							<Fade key={movie.imdb}>
+								<Link key={movie.imdb} to={`/movies/${movie.imdb}`} className="movies-link">
+									<div ref={img => (this.refImages[i] = img)}>
+										<div className="movies-card">
+											<figure>
+												<img className="movies-img" src={movie.poster} alt={movie.title} />
+											</figure>
+											<h1 className="movies-title">{movie.title}</h1>
+										</div>
+									</div>
+								</Link>
+							</Fade>
+						))}
+					</TransitionGroup>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default Home;

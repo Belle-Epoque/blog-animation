@@ -1,57 +1,120 @@
 .Home {
-  margin-top: 40px;
+	margin-top: 40px;
 }
 
 .Home-title {
-  font-size: 1.5em;
+	font-size: 1.5em;
 }
 
 .Home-intro {
-  font-size: large;
+	font-size: large;
+}
+
+.Home-globalSearch {
+	height: 50px;
+	width: 50%;
+	padding: 0 25px 0 25px;
+	margin-bottom: 25px;
+	border-radius: 10px;
+	border: none;
+	-webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+	font-size: 16px;
+	font-style: italic;
+}
+
+.Home-catSearch {
+  margin-right: 15px;
+  color: grey;
+}
+
+.Home-catSearch,
+.Home-yearSearch {
+	height: 40px;
+  width: 25%;
+	padding: 0 25px 0 25px;
+	margin-bottom: 25px;
+	border-radius: 10px;
+	border: none;
+	-webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3);
+	font-size: 16px;
+	font-style: italic;
 }
 
 @keyframes Home-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
-.Card {
+.movies {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	align-items: top;
+	max-width: 1300px;
+	margin: 0 auto;
 }
 
-.Card-media {
-  padding-top: 50%;
-  width: 100%;
-  background-position: center;
-  background-size: cover;
+.movies-title {
+	font-size: 18px;
+	padding: 10px 10px;
 }
 
-.Card-link {
-  text-decoration: none;
-  display: block;
+.movies-link {
+	width: calc(25% - 20px);
+	margin-bottom: 30px;
+	-webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+	box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+	border-radius: 10px 10px;
 }
 
-.Card {
-  text-align: left;
-  margin-bottom: 50px;
+@media only scren and (max-width: 1100px) {
+	.movies-link {
+		width: calc(33.3333% - 20px);
+	}
 }
+
+.movies-card figure,
+.movies-img {
+  height: 400px;
+	width: 100%;
+}
+
+.movies-card figure {
+  height: 400px;
+	overflow: hidden;
+	border-radius: 10px 10px 0 0;
+}
+
+.movies-img {
+  height: 400px;
+	width: 100%;
+	object-fit: cover;
+	object-position: top center;
+}
+
 .fade-enter {
-  opacity: 0.01;
+	opacity: 0.01;
 }
 
 .fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
+	opacity: 1;
+	transition: opacity 1000ms ease-in;
 }
 
 .fade-exit {
-  opacity: 1;
+	opacity: 1;
 }
 
 .fade-exit.fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 800ms ease-in;
+	opacity: 0.01;
+	transition: opacity 800ms ease-in;
 }

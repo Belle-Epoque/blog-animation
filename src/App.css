@@ -1,9 +1,17 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
 
+.AppBar {
+  background: black;
+}
+
 body {
-  background: #f2f3f4;
+  background: #fff;
 }
 .container {
   /* On centre */
@@ -24,4 +32,9 @@ body {
   .container {
       width: 85%;
   }
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

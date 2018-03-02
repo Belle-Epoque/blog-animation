@@ -24,24 +24,15 @@ class Header extends Component {
   }
 
   render() {
-    return (
-      <Fragment>
-        <AppBar
-          className="AppBar"
-          title="Blog"
-          onLeftIconButtonClick={() => this.handleClick()}
-          iconElementLeft={
-            <div className="Menu-icon">
-              <span />
-              <span />
-              <span />
-            </div>
-          }
-        />
+    return <Fragment>
+			<AppBar className="AppBar" title="OMDB Movies" onLeftIconButtonClick={() => this.handleClick()} iconElementLeft={<div className="Menu-icon">
+						<span />
+						<span />
+						<span />
+					</div>} />
 
-        <Menu open={this.state.open} closeMenu={() => this.forceCloseMenu()} />
-      </Fragment>
-    );
+			<Menu open={this.state.open} closeMenu={() => this.forceCloseMenu()} />
+		</Fragment>;
   }
 }
 

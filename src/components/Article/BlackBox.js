@@ -2,14 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Motion, spring } from "react-motion";
 
-const BlackBox = ({ reverseDirection = false }) => (
+const BlackBox = () => (
   <Motion defaultStyle={{ scaleX: 1 }} style={{ scaleX: spring(0) }}>
     {interpolatingStyle => (
       <div
         className="black-box"
         style={{
-          transformOrigin: reverseDirection ? `left` : `right`,
-          transform: `scaleX(${interpolatingStyle.scaleX})`
+          opacity: 0 ? 1 : 0
         }}
       />
     )}

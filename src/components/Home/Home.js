@@ -62,27 +62,19 @@ class Home extends Component {
         <div className="Home-intro">
           <div className="container">
             <TransitionGroup className="todo-list">
-              {movies.map((movies, i) => (
-                <Fade key={movies.id}>
+              {movies.map((movie, i) => (
+                <Fade key={i}>
                   <div className="Card">
-                    {/* <button onClick={() => this.animate(i)}>Click</button> */}
                     <Card>
-                      <Link to={`/movie/${movies.id}`} className="Card-link">
-                        {/* <CardHeader
-                          title="Marley"
-                          subtitle="Rédacteur"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
-                        /> */}
-                        {/* <div ref={img => (this.refImages[i] = img)}> */}
+                      <Link to={`/movie/${movie.imdb}`} className="Card-link">
                         <CardMedia
                           className="Card-media"
-                          style={{ backgroundImage: `url(${movies.poster})` }}
-                          overlay={<CardTitle title={movies.title} />}
+                          style={{ backgroundImage: `url(${movie.poster})` }}
+                          overlay={<CardTitle title={movie.title} />}
                           overlayContentStyle={{ background: "transparent" }}
                           overlayStyle={{ color: "#fff" }}
                         />
-                        {/* </div> */}
-                        <CardText>{movies.excerpt}</CardText>
+                        <CardText>{movie.plot}</CardText>
                       </Link>
                     </Card>
                   </div>

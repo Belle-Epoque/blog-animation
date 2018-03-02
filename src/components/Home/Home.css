@@ -1,25 +1,89 @@
-.Home {
-  margin-top: 40px;
+.aside-filter {
+  float: left;
+  width: 14%;
+  margin-left: 5px;
+  margin-top: 20px;
+  font-weight: 700;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  border-radius: 2px;
+  padding: 10px 0;
+  position: fixed;
 }
 
-.Home-title {
-  font-size: 1.5em;
+.aside-filter input {
+  display: block;
+  margin:10px auto;
+  width: 85%;
+  height: 25px;
 }
 
-.Home-intro {
-  font-size: large;
+.aside-filter p {
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
+  margin:0 auto;
 }
 
-@keyframes Home-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.aside-filter ul {
+  margin-top:20px;
+}
+
+.aside-filter ul li {
+  font-weight: 400;
+  margin-top: 15px;
+}
+
+.container {
+  width: 70%;
+  float: right;
 }
 
 .Card {
+  width: 48%;
+  float:left;
+  margin:20px 10px 0 0;
+}
+@media screen and (max-width: 1000px) {
+  .container {
+    width:60%;
+    float: right;
+  }
+
+  .aside-filter {
+    width: 30%;
+    margin-left: 20px;
+    float: none;
+  }
+
+  .Card {
+    width: 70%;
+    float: right;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width:90%;
+    float: right;
+  }
+
+  .Card {
+    width: 90%;
+    float: none;
+  }
+
+  .aside-filter {
+    width: 90%;
+    display: block;
+    position: inherit;
+  }
+
+  .aside-filter input {
+    width: 70%;
+    height: 20px;
+    margin-top: 10px;
+  }
 }
 
 .Card-media {
@@ -29,29 +93,57 @@
   background-size: cover;
 }
 
+.searchHome a {
+  text-decoration: none;
+  font-weight: 700;
+  color: #6C92A1;
+}
+
+.searchHome a:after {
+  content:'\2192';
+  margin-left: 10px;
+}
+
+.Card-header {
+  text-align: left;
+  text-transform: uppercase;
+  padding: 10px !important;
+  vertical-align: middle;
+  margin:0;
+}
+
+.Card-header span {
+  padding: 0;
+  margin: 0;
+}
+
+.Card-title {
+  background: rgba(16,16,16,0.8);
+}
+
 .Card-link {
   text-decoration: none;
   display: block;
 }
 
-.Card {
-  text-align: left;
-  margin-bottom: 50px;
-}
 .fade-enter {
   opacity: 0.01;
+  transform: translateY(300px);
 }
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease-in;
+  transform: translateY(0);
+  transition: 600ms;
 }
 
 .fade-exit {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .fade-exit.fade-exit-active {
   opacity: 0.01;
-  transition: opacity 800ms ease-in;
+  transform: translateY(300px);
+  transition: 600ms;
 }

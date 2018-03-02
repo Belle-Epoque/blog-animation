@@ -1,0 +1,21 @@
+.Search {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.Search h2 {
+    margin:20px auto;
+}
+
+.Search input {
+    width: 60%;
+    height: 30px;
+    border: 1px solid #D0CFCE;
+    outline: none;
+}
+
+.Search input:focus {
+    border: 1px solid #008ABF;
+    transition: 0.35s ease;
+    color: #008ABF;
+}

@@ -4,10 +4,9 @@ import {
   CardHeader,
   CardMedia,
   CardTitle,
-  CardText
 } from "material-ui/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { getArticles, searchMovies, getMovie } from "../../api/api";
+import { searchMovies } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
 import "./Home.css";
@@ -23,69 +22,100 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      articles: [],
       movies: [],
       show: false
     };
 
-    // Tableau de référence des images.
     this.refImages = [];
   }
 
   async componentDidMount() {
-    const articles = await getArticles();
 
-    //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
-      terms: "matrix", // Required string
-      //year: 1999, // optional number
-      page: 1 // optional number (1 - 100)
-      //type: "movie" // optional string ("series" || "movie" || "episode")
+      terms: "dog",
+      page: 1 
+    
     });
-    console.log("DEBUG", movies);
-    const firstFullDataMovie =
-      movies.length > 0 ? await getMovie(movies[0].imdb) : {};
-    console.log(firstFullDataMovie);
 
     this.setState({
-      articles,
-      //movies,
+      movies,
       show: true
     });
   }
 
-  animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+  async filterSearch(title = "dog", year = null, type = null){
+    let movies = null;
+    if (title || year || type) {
+      movies = await searchMovies({
+        terms: title ? title :"dog",
+        year: year,
+        type: type,
+        page: 1
+      });
+    } else {
+      movies = await searchMovies({
+        terms: "dog",
+        page: 1
+      });
+    }
+
+    if (movies) {
+      this.setState({
+        movies: movies,
+      });
+    }
   }
 
   render() {
-    const articles = this.state.articles;
+    const movies = this.state.movies;
     return (
       <div className="Home">
         <div className="Home-intro">
+          <div className="searchHome">
+              <Link to={`/search`}>Recherchez votre film</Link>
+          </div>
+          <div className="aside-filter">
+            <h3>Filtrer</h3>
+            <input
+            placeholder={'Titre'}
+            className="Filter-title"
+            type="text"
+            ref={(title) => { this.titleSearch = title; }}
+            onChange={() => this.filterSearch(this.titleSearch.value, this.yearSearch.value, this.typeSearch.value) }/>
+            <input
+            placeholder={'Année'}
+            className="Filter-year"
+            type="number"
+            ref={(year) => { this.yearSearch = year; }}
+            onChange={() => this.filterSearch(this.titleSearch.value, this.yearSearch.value, this.typeSearch.value) }/>
+            <select
+            className="Filter-type"
+            required="false"
+            name="filter_type"
+            ref={(type) => { this.typeSearch = type; }}
+            onChange={() => this.filterSearch(this.titleSearch.value, this.yearSearch.value, this.typeSearch.value) }>
+                <option value="" defaultValue="selected"> Tout </option>
+                <option value="series">Séries</option>
+                <option value="movie">Films</option>
+            </select>
+          </div>
           <div className="container">
-            <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+            <TransitionGroup className="fade">         
+              {movies.map((movies, i) => (
+                <Fade key={movies.imdb}>
                   <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
+                      <Link to={`/movies/${movies.imdb}`} className="Card-link">
                         <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
+                          className="Card-header" title={movies.type}
                         />
-                        <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
+                            style={{ backgroundImage: `url(${movies.poster})` }}
+                            overlay={<CardTitle title={movies.title} className="Card-title" />}
                             overlayContentStyle={{ background: "transparent" }}
                             overlayStyle={{ color: "#fff" }}
                           />
-                        </div>
-                        <CardText>{article.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>

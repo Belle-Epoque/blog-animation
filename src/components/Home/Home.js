@@ -7,7 +7,7 @@ import {
   CardText
 } from "material-ui/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { getArticles, searchMovies, getMovie } from "../../api/api";
+import { searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
 import "./Home.css";
@@ -23,7 +23,6 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      articles: [],
       movies: [],
       show: false
     };
@@ -33,8 +32,6 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const articles = await getArticles();
-
     //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
       terms: "matrix", // Required string
@@ -46,10 +43,8 @@ class Home extends Component {
     const firstFullDataMovie =
       movies.length > 0 ? await getMovie(movies[0].imdb) : {};
     console.log(firstFullDataMovie);
-
     this.setState({
-      articles,
-      //movies,
+      movies,
       show: true
     });
   }
@@ -58,34 +53,75 @@ class Home extends Component {
     TweenMax.to(this.refImages[i], 2, { opacity: 0 });
   }
 
+  async type(movies) {
+    let value = this.textSelect.value;
+
+    if (value === 'all') {
+      const filterType = await searchMovies({
+        terms: "matrix", // Required string
+        page: 1 // optional number (1 - 100)
+      });
+      this.setState({
+        movies: filterType
+      })
+    } else {
+      const filterType = await searchMovies({
+        terms: "matrix", // Required string
+        type: value,
+        //year: 1999, // optional number
+        page: 1 // optional number (1 - 100)
+        //type: "movie" // optional string ("series" || "movie" || "episode"),
+      });
+
+      this.setState({
+        movies: filterType
+      })
+    }
+  }
+
   render() {
-    const articles = this.state.articles;
+    const movies = this.state.movies;
+    console.log(movies);
+
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
+
+        {/*SELECT BY TYPE*/}
+            <select onChange={() => this.type(movies) } ref={(select) => { this.textSelect = select; }}>
+              <option>all</option>
+              <option>series</option>
+              <option>movie</option>
+              <option>episode</option>
+            </select>
+
+          {/*SEARCH*/}
+            <input placeholder="Nom du film" />
+            <button>Search </button>
+
+          {/*AFFICHAGE*/}
             <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+              {movies.map((movie, i) => (
+                <Fade key={movie.imdb}>
                   <div className="Card">
                     <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
+                      <Link to={`/movie/${movie.imdb}`} className="Card-link">
                         <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
+                          title={movie.title}
                         />
+                        <h1>{movie.title}</h1>
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
+                            style={{ backgroundImage: `url(${movie.poster})` }}
+                            overlay={<CardTitle title={movie.title} />}
                             overlayContentStyle={{ background: "transparent" }}
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{article.excerpt}</CardText>
+                        <CardText>{movie.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>

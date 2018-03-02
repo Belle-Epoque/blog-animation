@@ -20,11 +20,14 @@
 }
 
 .Card {
+  display: inline-block;
+  margin: 2%;
 }
 
 .Card-media {
   padding-top: 50%;
   width: 100%;
+  height: 15rem;
   background-position: center;
   background-size: cover;
 }
@@ -54,4 +57,11 @@
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
+}
+
+
+@media screen and (min-width: 768px) {
+  .Card {
+    width: 30%;
+  }
 }

@@ -7,11 +7,13 @@ class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {}
+      article: {},
+      id: ''
     };
   }
 
   componentDidMount() {
+    console.log('1')
     this.refreshSingleArticle(this.props.match.params.number);
   }
 
@@ -23,23 +25,29 @@ class Article extends Component {
   }
 
   async refreshSingleArticle(articleId) {
+    console.log('2')
     const filterArticle = await getArticle(articleId);
+    console.log('3')
 
     if (!filterArticle) {
       // This article doesn't exist.
       return;
     }
-
+    console.log('4')
     this.setState({
-      article: filterArticle
+      article: filterArticle,
+      id: articleId
     });
+    console.log(this.state.id);
   }
 
   render() {
     const { article: { title, body, img } } = this.state;
 
+    console.log("article", this.state.article);
     return (
       <Fragment>
+        Article
         <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
           <BlackBox reverseDirection={false} />
           <BlackBox reverseDirection={true} />

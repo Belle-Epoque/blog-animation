@@ -11,6 +11,8 @@ import { getArticles, searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
 import uniquid from 'uniquid';
+import Filter from '../Filter/Filter';
+import Pagination from '../Pagination/Pagination';
 import "./Home.css";
 
 const Fade = ({ children, ...props }) => (
@@ -26,7 +28,9 @@ class Home extends Component {
     this.state = {
       articles: [],
       movies: [],
-      show: false
+      show: false,
+      moviesName: "one piece",
+      page: 1
     };
 
     // Tableau de référence des images.
@@ -39,9 +43,9 @@ class Home extends Component {
     //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
       id: uniquid(), // uniquId
-      terms: "one piece", // Required string
+      terms: this.state.moviesName, // Required string
       //year: 1999, // optional number
-      page: 1 // optional number (1 - 100)
+      page: this.state.page // optional number (1 - 100)
       //type: "movie" // optional string ("series" || "movie" || "episode")
     });
 
@@ -58,6 +62,21 @@ class Home extends Component {
     });
   }
 
+  pagePrecedente() {
+    console.log('précedent');
+    this.setState({
+      page: this.state.page - 1
+    })
+  }
+
+  pageSuivante() {
+    console.log('suivante');
+    this.setState({
+      page: this.state.page  + 1
+    })
+  }
+
+
   animate(i) {
     TweenMax.to(this.refImages[i], 2, { opacity: 0 });
   }
@@ -65,23 +84,21 @@ class Home extends Component {
   myConsole
 
   render() {
-    const articles = this.state.articles;
     const movies = this.state.movies;
-
-    console.log('articles', articles)
-    console.log('movies', movies)
+    let page = this.state.page;
 
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
             {<TransitionGroup className="todo-list">
+              <Filter movies={this.state.movies}/>
               {movies.map((movie, i) => (
-                <Fade key={movie.id}>
+                <Fade key={movie.imdb}>
                   <div className="Card">
                     <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${movie.id}`} className="Card-link">
+                      <Link to={`/article/${movie.imdb}`} className="Card-link">
                         <CardHeader
                           title="Bob"
                           subtitle="Web dev"
@@ -96,12 +113,13 @@ class Home extends Component {
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{movie.excerpt}</CardText>
+                        <CardText>Type: {movie.type}</CardText>
                       </Link>
                     </Card>
                   </div>
                 </Fade>
               ))}
+              <Pagination pageSuivante={this.pageSuivante} pagePrecedente={this.pagePrecedente} page={this.state.page} />
             </TransitionGroup>}
           </div>
         </div>

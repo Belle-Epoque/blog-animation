@@ -23,10 +23,6 @@ class Article extends Component {
     }
   }
 
-  animate(i) {
-    TweenMax.from(this.refDescription, 2, { opacity: 0 });
-  }
-
   async refreshSingleArticle(articleId) {
     const filterArticle = await getMovie(articleId);
 
@@ -42,7 +38,6 @@ class Article extends Component {
 
   render() {
     const { article: { title, year, actors, plot, poster } } = this.state;
-    // console.log(this.state);
     return (
       <Fragment>
         <div
@@ -55,10 +50,7 @@ class Article extends Component {
           <BlackBox reverseDirection={true} />
         </div>
         <div className="container">
-          <div
-            className="Article-body"
-            ref={description => (this.refDescription = description)}
-          >
+          <div className="Article-body">
             <h2 className="Article-title">
               {title}, {year}
             </h2>

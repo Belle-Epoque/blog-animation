@@ -6,12 +6,10 @@ import Article from "./../components/Article/Article";
 import Page from "./../components/Page/Page";
 
 const Router = () => (
-	<Switch>
-		<Route exact path="/" component={Home} />
-		<Route path="/about" component={About} />
-		<Route path="/page" component={Page} />
-		<Route path="/article/:number" component={Article} />
-	</Switch>
+  <Switch>
+    <Route exact path="/home" component={Home} />
+    <Route path="/article/:number" component={Article} />
+  </Switch>
 );
 
 export default Router;

@@ -32,22 +32,18 @@ class Home extends Component {
 
     // Tableau de référence des images.
     this.refImages = [];
-  }
+  } 
 
-  // handleChange(){
-  //   const requete = this.filterLabel.valueLabel.value;
-  //   return requete;
-  // }
 
-  async componentDidMount() {
-    const articles = await getArticles();
-
-    //const movies = await searchMovies("matrix");
-    const movies = await searchMovies({
-      terms:
-        this.searchLabel.valueLabel.value != ""
-          ? this.searchLabel.valueLabel.value
-          : "matrix", // Required string
+    async componentDidMount() {
+      const articles = await getArticles();
+      console.log(this.filterLabel.value); 
+      //const movies = await searchMovies("matrix");
+      const movies = await searchMovies({
+        terms:
+          this.searchLabel.valueLabel.value != ""
+            ? this.searchLabel.valueLabel.value
+            : "matrix", // Required string
       //year: 1999, // optional number
       page: 1, // optional number (1 - 100)
       type: this.filterLabel.value ? this.filterLabel.value : "movie" // optional string ("series" || "movie" || "episode")

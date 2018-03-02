@@ -18,28 +18,8 @@ const Menu = ({ open, closeMenu }) => (
       }}
     >
       <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/">
+        <Link className="Menu-link" onClick={e => closeMenu()} to="/home">
           Home
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/about">
-          About
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/article/1">
-          Article #1
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/article/2">
-          Article #2
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/page">
-          Page
         </Link>
       </ListItem>
     </List>

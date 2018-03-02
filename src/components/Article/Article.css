@@ -2,7 +2,8 @@
   height: calc(100vh - 64px);
   width: 100%;
   background-position: center;
-  background-size: cover;
+  background-size: 30% 80%;
+  background-repeat: no-repeat;
   position: relative;
 }
 
@@ -15,6 +16,7 @@
 
 .Article-body {
   margin-top: 30px;
+  margin-bottom: 5%;
 }
 
 .Article-title {

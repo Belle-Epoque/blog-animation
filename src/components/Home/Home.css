@@ -25,8 +25,9 @@
 .Card-media {
   padding-top: 50%;
   width: 100%;
-  background-position: center;
-  background-size: cover;
+  background-position: center 0;
+  background-repeat: no-repeat;
+  background-size: 40% 100%;
 }
 
 .Card-link {

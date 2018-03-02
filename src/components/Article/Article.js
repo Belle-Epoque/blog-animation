@@ -30,6 +30,7 @@ class Article extends Component {
       console.log('this movie does not exist')
       return;
     }
+    console.log(filterArticle)
 
     this.setState({
       movie: filterArticle
@@ -37,11 +38,12 @@ class Article extends Component {
   }
 
   render() {
-    const { movie: { title, body, poster } } = this.state;
+    const { movie: { title, body, poster, actors, director, plot, year } } = this.state;
     //console.log (this.state.movie.title);
-
     return (
       <Fragment>
+        <h1 className="Article-title">{title}</h1>
+        <h2>{year}</h2>
         <div className="Article-img" style={{ backgroundImage: `url(${poster})` }}>
           <BlackBox reverseDirection={false} />
           <BlackBox reverseDirection={true} />
@@ -50,7 +52,12 @@ class Article extends Component {
         </div>
         <div className="container">
           <div className="Article-body">
-            <h1 className="Article-title">{title}</h1>
+            <h2>Director :</h2>
+            <p>{director}</p>
+            <h2>Acteurs :</h2>
+            <p>{actors}</p>
+            <h2>Synopsis :</h2>
+            <p>{plot}</p>
             <p>{body}</p>
           </div>
         </div>

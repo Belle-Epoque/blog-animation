@@ -11,12 +11,15 @@ import { getArticles, searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
 import "./Home.css";
+import AutoComplete from 'material-ui/AutoComplete';
 
 const Fade = ({ children, ...props }) => (
   <CSSTransition {...props} timeout={3000} classNames="fade">
     {children}
   </CSSTransition>
 );
+
+const  titleSelection = [];
 
 class Home extends Component {
   constructor(props) {
@@ -25,6 +28,7 @@ class Home extends Component {
     this.state = {
       articles: [],
       movies: [],
+      search : "matrix",
       show: false
     };
 
@@ -37,15 +41,23 @@ class Home extends Component {
 
     //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
-      terms: "matrix", // Required string
+      terms: this.state.search, // Required string
       //year: 1999, // optional number
       page: 1 // optional number (1 - 100)
       //type: "movie" // optional string ("series" || "movie" || "episode")
     });
     console.log("DEBUG", movies);
+    console.log(movies[0].title)
+
+    for (let x in movies) {
+      console.log(movies[x].title)
+      titleSelection.push(movies[x].title)
+    }
+    console.log(titleSelection)
     const firstFullDataMovie =
       movies.length > 0 ? await getMovie(movies[0].imdb) : {};
     console.log(firstFullDataMovie);
+    console.log(firstFullDataMovie.title);
 
     this.setState({
       articles,
@@ -62,9 +74,26 @@ class Home extends Component {
     const articles = this.state.articles;
     const movies = this.state.movies;
     console.log(movies);
+
     return (
       <div className="Home">
         <div className="Home-intro">
+
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Name:
+              <input type="text" value={this.state.value} onChange={this.handleChange} />
+            </label>
+            <input type="submit" value="Submit" />
+          </form>
+
+          <AutoComplete
+              floatingLabelText="Type 'peah', fuzzy search"
+              filter={AutoComplete.fuzzyFilter}
+              dataSource={titleSelection}
+              maxSearchResults={5}
+          />
+
           <div className="container">
             <TransitionGroup className="todo-list">
               {movies.map((movie, i) => (

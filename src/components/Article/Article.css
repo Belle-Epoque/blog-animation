@@ -1,8 +1,10 @@
 .Article-img {
-  height: calc(100vh - 64px);
+  margin-top: 30px;
+  height: 50vh;
   width: 100%;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   position: relative;
 }
 
@@ -15,11 +17,15 @@
 
 .Article-body {
   margin-top: 30px;
+  text-align: left;
+}
+.Article-body h2{
+  margin-top: 20px;
 }
 
 .Article-title {
   font-size: 1.4rem;
   font-weight: 400;
   text-transform: upeprcase;
-  margin-bottom: 30px;
+  margin-top:30px;
 }

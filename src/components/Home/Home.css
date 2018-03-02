@@ -1,37 +1,9 @@
-.Home {
-  margin-top: 40px;
+.home {
+  display: flex;
+  flex-flow: row wrap;
 }
-
-.Home-title {
-  font-size: 1.5em;
-}
-
-.Home-intro {
-  font-size: large;
-}
-
-@keyframes Home-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.Card {
-}
-
-.Card-media {
-  padding-top: 50%;
+.home__medias {
   width: 100%;
-  background-position: center;
-  background-size: cover;
-}
-
-.Card-link {
-  text-decoration: none;
-  display: block;
 }
 
 .Card {

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { getArticle } from "../../api/api";
 import BlackBox from "./BlackBox.js";
+import { getMovie } from "../../api/omdb";
+import { Card, CardHeader, CardTitle, CardText } from "material-ui/Card";
+
 import "./Article.css";
 
 class Article extends Component {
@@ -12,7 +14,7 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    this.refreshSingleArticle(this.props.match.params.number);
+    this.refreshSingleArticle(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,35 +25,21 @@ class Article extends Component {
   }
 
   async refreshSingleArticle(articleId) {
-    const filterArticle = await getArticle(articleId);
-
-    if (!filterArticle) {
-      // This article doesn't exist.
-      return;
-    }
-
+    const filterArticle = await getMovie(articleId);
     this.setState({
       article: filterArticle
     });
   }
 
   render() {
-    const { article: { title, body, img } } = this.state;
-
+    const { article: { title, poster, plot, director } } = this.state;
     return (
       <Fragment>
-        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-        </div>
-        <div className="container">
-          <div className="Article-body">
-            <h1 className="Article-title">{title}</h1>
-            <p>{body}</p>
-          </div>
-        </div>
+        <Card className="cards__article">
+          <img src={poster} alt="" />
+          <CardTitle title={title} subtitle={director} />
+          <CardText>{plot}</CardText>
+        </Card>
       </Fragment>
     );
   }

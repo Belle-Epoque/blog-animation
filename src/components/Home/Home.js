@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
+import uniqid from "uniqid";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { getArticles, searchMovies, getMovie } from "../../api/api";
+import Search from "./../Search/Search";
+import { searchMovies, getMovie } from "../../api/api";
+import { MuiThemeProvider } from "material-ui";
+import FlatButton from "material-ui/FlatButton";
 import { Link } from "react-router-dom";
-import { TweenMax } from "gsap";
+
 import "./Home.css";
 
 const Fade = ({ children, ...props }) => (
@@ -23,69 +20,82 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      articles: [],
       movies: [],
-      show: false
+      show: false,
+      value: "",
+      page: 1
     };
 
     // Tableau de référence des images.
     this.refImages = [];
+    this.refMedia = [];
   }
 
   async componentDidMount() {
-    const articles = await getArticles();
-
-    const movies = await searchMovies("matrix");
-    console.log(movies);
-    const firstFullDataMovie = await getMovie(movies[0].imdb);
+    //const movies = await searchMovies("matrix");
+    const movies = await searchMovies({
+      terms: "matrix", // Required string
+      //year: 1999, // optional number
+      page: this.state.page // optional number (1 - 100)
+      //type: "movie" // optional string ("series" || "movie" || "episode")
+    });
+    const firstFullDataMovie =
+      movies.length > 0 ? await getMovie(movies[0].imdb) : {};
     console.log(firstFullDataMovie);
 
     this.setState({
-      articles,
-      //movies,
-      show: true
+      movies
     });
   }
 
-  animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+  _handleSearch = ref => {
+    (async () => {
+      const movies = await searchMovies(ref);
+
+      this.setState({
+        movies: movies
+      });
+    })();
+  };
+
+  _handleNext() {
+    let next = this.state.page + 1;
+    this.setState({
+      page: next
+    });
+    console.log(next);
+  }
+
+  _handlePrev() {
+    let prev = this.state.page - 1;
+    this.setState({
+      page: prev
+    });
+    console.log(prev);
   }
 
   render() {
-    const articles = this.state.articles;
+    const { movies, value } = this.state;
     return (
-      <div className="Home">
-        <div className="Home-intro">
-          <div className="container">
-            <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
-                  <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
-                    <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
-                        <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
-                        />
-                        <div ref={img => (this.refImages[i] = img)}>
-                          <CardMedia
-                            className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
-                            overlayContentStyle={{ background: "transparent" }}
-                            overlayStyle={{ color: "#fff" }}
-                          />
-                        </div>
-                        <CardText>{article.excerpt}</CardText>
-                      </Link>
-                    </Card>
+      <div>
+        <Search onSearch={this._handleSearch} />
+        <FlatButton label="Next" onClick={() => this._handleNext()} />
+        <FlatButton label="Previous" onClick={() => this._handlePrev()} />
+        <div className="home">
+          {movies.map((items, i) => {
+            return (
+              <a key={uniqid()} href={`/article/${items.imdb}`}>
+                <div className="home__cards">
+                  <div className="home__medias">
+                    <img
+                      ref={media => (this.refMedia[i] = media)}
+                      src={items.poster}
+                    />
                   </div>
-                </Fade>
-              ))}
-            </TransitionGroup>
-          </div>
+                </div>
+              </a>
+            );
+          })}
         </div>
       </div>
     );

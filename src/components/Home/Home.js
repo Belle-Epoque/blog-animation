@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardTitle,
-  CardText
-} from "material-ui/Card";
+import { Card, CardHeader, CardMedia, CardTitle, CardText } from "material-ui/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { getArticles, searchMovies, getMovie } from "../../api/api";
+import { searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
-import { TweenMax } from "gsap";
+// import "bootstrap/less/bootstrap.less";
 import "./Home.css";
 
 const Fade = ({ children, ...props }) => (
@@ -18,59 +12,104 @@ const Fade = ({ children, ...props }) => (
   </CSSTransition>
 );
 
+
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      articles: [],
       movies: [],
-      show: false
+      show: false,
     };
+    
+    this.handlePageChange = this._handlePageChange;
 
     // Tableau de référence des images.
     this.refImages = [];
+
   }
 
+  
   async componentDidMount() {
-    const articles = await getArticles();
+    
+    // //const movies = await searchMovies("matrix");
+    // const movies = await searchMovies({
+    //   terms: "matrix", // Required string
+    //   //year: 1999, // optional number
+    //   page: 1, // optional number (1 - 100)
+    //   //type: "movie" // optional string ("series" || "movie" || "episode")
+    // });
+    // console.log("DEBUG", movies);
 
-    //const movies = await searchMovies("matrix");
-    const movies = await searchMovies({
-      terms: "matrix", // Required string
-      //year: 1999, // optional number
-      page: 1 // optional number (1 - 100)
-      //type: "movie" // optional string ("series" || "movie" || "episode")
-    });
-    console.log("DEBUG", movies);
-    const firstFullDataMovie =
-      movies.length > 0 ? await getMovie(movies[0].imdb) : {};
-    console.log(firstFullDataMovie);
+    
+    let fullArray = [];
+    
+      for (let i = 1; i < 100; i++) {
+    
+        let search = await searchMovies({
+          terms: "matrix",
+          page: i
+        });
+    
+        fullArray = fullArray.concat(search).filter(article => article.poster !== undefined).filter(article => article.poster.indexOf("https") !== -1);
+        if (search.length === 0) {
+          break;
+        }
+      //   const firstFullDataMovie =
+      //   search.length > 0 ? await getMovie(search[0].imdb) : {};
+      // console.log(firstFullDataMovie);
+      }
 
-    this.setState({
-      articles,
-      //movies,
-      show: true
-    });
+      fullArray.length = 12;
+
+      this.setState({
+        movies: fullArray,
+        show: true
+      });
   }
 
-  animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+  async LookingForMovies(e) {
+
+    let fullArray = [];
+    
+      for (let i = 1; i < 100; i++) {
+    
+        let search = await searchMovies({
+          terms: this.title.value,
+          page: i
+        });
+    
+        if (search.length === 0) {
+          break;
+        }
+    
+        fullArray = fullArray.concat(search).filter(article => article.poster !== undefined).filter(article => article.poster.indexOf("https") !== -1);
+    
+      }
+
+      this.setState({
+        movies: fullArray,
+        show: true
+      });
   }
+  
 
   render() {
-    const articles = this.state.articles;
+    
+    const movies = this.state.movies;
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
+            <label>Rechercher</label>
+            <br/>
+            <input type="text" ref={title => (this.title = title)} onKeyPress={(e) => { if (e.key === 'Enter' && (e.target.value !== '')) {this.LookingForMovies(e)}}} />
             <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+              {movies.filter(movie => movie.poster.indexOf("https") !== -1).map((movie, i) => (
+                <Fade key={movie.imdb}>
                   <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
+                      <Link to={`/article/${movie.imdb}`} className="Card-link">
                         <CardHeader
                           title="Bob"
                           subtitle="Web dev"
@@ -79,13 +118,12 @@ class Home extends Component {
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
-                            overlayContentStyle={{ background: "transparent" }}
+                            style={{ backgroundImage: `url(${movie.poster})` }}
+                            overlay={<CardTitle title={movie.title}/>}
+                            overlayContentStyle={{ background: "#00000087" }}
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{article.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>

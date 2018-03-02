@@ -16,7 +16,7 @@ const BlackBox = ({ reverseDirection = false }) => (
   </Motion>
 );
 
-BlackBox.PropTypes = {
+BlackBox.propTypes = {
   reverseDirection: PropTypes.bool
 };
 

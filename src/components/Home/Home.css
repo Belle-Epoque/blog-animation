@@ -10,34 +10,49 @@
   font-size: large;
 }
 
-@keyframes Home-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+label {
+  display: flex;
+  justify-content: center;
 }
 
+input {
+  width: 20%;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  text-align: center;
+  color: #404040;
+}
+
+
+.todo-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
 .Card {
+  color: black;
+  margin-top: 20px;
+  text-align: left;
+  width: 300px;
 }
 
 .Card-media {
-  padding-top: 50%;
+  height: 500px;
   width: 100%;
   background-position: center;
   background-size: cover;
 }
+
 
 .Card-link {
   text-decoration: none;
   display: block;
 }
 
-.Card {
-  text-align: left;
-  margin-bottom: 50px;
-}
+
 .fade-enter {
   opacity: 0.01;
 }

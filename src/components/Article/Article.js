@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from "react";
-import { getArticle } from "../../api/api";
+import { getMovie } from "../../api/api";
 import BlackBox from "./BlackBox.js";
 import "./Article.css";
+import {presets} from 'react-motion'
 
 class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {}
+      movie: {}
     };
   }
 
@@ -23,7 +24,7 @@ class Article extends Component {
   }
 
   async refreshSingleArticle(articleId) {
-    const filterArticle = await getArticle(articleId);
+    const filterArticle = await getMovie(articleId);
 
     if (!filterArticle) {
       // This article doesn't exist.
@@ -31,25 +32,31 @@ class Article extends Component {
     }
 
     this.setState({
-      article: filterArticle
+      movie: filterArticle,
     });
   }
 
   render() {
-    const { article: { title, body, img } } = this.state;
-
+    const { movie: { title, year, poster, actors, plot, countries, genres } } = this.state;
     return (
       <Fragment>
-        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-        </div>
-        <div className="container">
-          <div className="Article-body">
-            <h1 className="Article-title">{title}</h1>
-            <p>{body}</p>
+        <div className="Container-global">
+            <BlackBox reverseDirection={false} />
+            <BlackBox reverseDirection={true} />
+            <BlackBox reverseDirection={false} />
+            <BlackBox reverseDirection={true} />
+            <img src={poster} alt="" />
+          <div className="container-bottom">
+            <div className="Article-body">
+              <h1 className="Article-title">{title}</h1>
+              <h2>{year} ({`${countries}`})</h2>
+              <br/>
+              <p>{`${actors}`}</p>
+              <br/>
+              <p>{`${genres}`}</p>
+              <br/>
+              <p>{plot}</p>
+            </div>
           </div>
         </div>
       </Fragment>

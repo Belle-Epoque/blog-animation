@@ -1,9 +1,13 @@
-.Article-img {
-  height: calc(100vh - 64px);
-  width: 100%;
-  background-position: center;
-  background-size: cover;
-  position: relative;
+.Container-global {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  text-align: left;
+  margin-top: 100px;
+}
+
+.Container-global img {
+  height: 600px;
 }
 
 .black-box {
@@ -11,6 +15,10 @@
   height: 25%;
   background: #000;
   transform-origin: right;
+}
+
+.container-bottom {
+  width: 50%;
 }
 
 .Article-body {

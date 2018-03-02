@@ -8,8 +8,6 @@ import Page from "./../components/Page/Page";
 const Router = () => (
 	<Switch>
 		<Route exact path="/" component={Home} />
-		<Route path="/about" component={About} />
-		<Route path="/page" component={Page} />
 		<Route path="/article/:number" component={Article} />
 	</Switch>
 );

@@ -7,8 +7,8 @@ const BlackBox = ({ reverseDirection = true }) => (
       <div
         className="black-box"
         style={{
-          transformOrigin: reverseDirection ? `top` : `bottom`,
-          transition: '0.3s',
+          transformOrigin: reverseDirection ? `left` : `right`,
+          transition: '0.4s linear',
           transform: `scaleX(${interpolatingStyle.scaleX})`
         }}
       />

@@ -144,7 +144,6 @@
   z-index: 9999;
   position: fixed;
   background: #fff;
-  transition: 0.3s;
 }
 .Listing {
   width: auto;

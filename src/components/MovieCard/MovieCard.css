@@ -1,0 +1,8 @@
+.Card.MovieCard .Card-media{
+    padding-top: 100%;
+}
+
+.MovieCard .MovieAuthor {
+    margin-bottom: 15px;
+    font-style: italic;
+}

@@ -1,0 +1,42 @@
+.SingleMovie {
+  width: 75%;
+  max-width: 960px;
+  margin: 2em auto;
+  padding: 1em;
+  background: #FFF;
+}
+
+.SingleMovie .Movie-Label {
+  font-weight: 600;
+  font-style: italic;
+}
+
+.SingleMovie-Plot {
+  margin: 30px auto;
+  max-width: 80%;
+}
+
+.SingleMovie-Head .Movie-Title {
+  margin: 20px 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.SingleMovie-Head .Movie-Score {
+  margin-top: 20px;
+}
+
+.SingleMovie-Head .Movie-Score span{
+  display: block;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.SingleMovie-Plot .Movie-Label {
+  margin-bottom: 15px;
+}
+
+
+
+

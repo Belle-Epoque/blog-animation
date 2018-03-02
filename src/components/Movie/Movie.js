@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { searchMovies, getMovie } from "../../api/api";
 import BlackBox from "./BlackBox.js";
-import "./Article.css";
+import "./Movie.css";
 
-class Article extends Component {
+class Movie extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,4 +54,4 @@ class Article extends Component {
   }
 }
 
-export default Article;
+export default Movie;

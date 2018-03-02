@@ -6,10 +6,6 @@
   margin-bottom: 50px;
 }
 
-.AppBar {
-  position: fixed !important;
-  top: 0;
-}
 
 .active {
   color: tomato;

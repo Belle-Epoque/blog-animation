@@ -1,11 +1,10 @@
 import mockArticles from "./mockArticles.json";
 import * as omdb from "./omdb";
 
-//const USE_DISTANT_API = true;
 const USE_DISTANT_API = false;
 const DEFAULT_TIMEOUT = 200;
 
-/** fa
+/**
  * Get local content with delay.
  *
  * @param {json} content

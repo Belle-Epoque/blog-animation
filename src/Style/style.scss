@@ -1,0 +1,13 @@
+@import './CssComponents/__Home.scss';
+@import './CssComponents/__Movie.scss';
+body {
+    width: 100%;
+    max-width: 90em;
+    height: 100vh;
+    
+    .AppBar {
+        position: fixed !important;
+        top: 0;
+        background: linear-gradient(45deg, rgba(125,60,168,1) 0%, rgba(232,21,49,1) 48%, rgba(247,214,49,1) 100%) !important;
+    }
+}

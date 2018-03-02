@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { getMovie } from "../../api/api";
 import BlackBoxMovie from "./BlackBoxMovie";
-import "./Movie.css";
 
 export default class Movie extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ async componentDidMount() {
     this.setState({ movie })
   }
   render() {
-    const { movie } = this.state;
+    const { movie : {poster, title, plot, type, countries}} = this.state;
 
     return (
 
@@ -24,7 +23,7 @@ async componentDidMount() {
           <div className="containerMajor">
 
 
-        <div className="Movie-img" style={{ backgroundImage: `url(${movie.poster})` }}>
+        <div className="Movie-img" style={{ backgroundImage: `url(${poster})` }}>
           <BlackBoxMovie reverseDirection={false} />
           <BlackBoxMovie reverseDirection={true} />
           <BlackBoxMovie reverseDirection={false} />
@@ -33,9 +32,9 @@ async componentDidMount() {
         
         <div className="informations">
           <div className="Movie-body">
-            <h1 className="Movie-title">{movie.title}</h1>
-            <p>Country :<span>{movie.countries}, Type :{movie.type}</span></p>
-            <p className="description">{movie.plot}</p>
+            <h2 className="Movie-title">{title}</h2>
+            <p>Country :<span>{countries}, Type :{type}</span></p>
+            <p className="description">{plot}</p>
           </div>
         </div>
         </div>
@@ -43,5 +42,3 @@ async componentDidMount() {
     );
   }
 }
-
-

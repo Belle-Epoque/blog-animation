@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import {
   Card,
   CardHeader,
@@ -10,7 +11,9 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getArticles, searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
+import Search from "./../Search/Search";
 import "./Home.css";
+import { presets } from "react-motion";
 
 const Fade = ({ children, ...props }) => (
   <CSSTransition {...props} timeout={3000} classNames="fade">
@@ -23,18 +26,11 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      articles: [],
-      movies: [],
-      show: false
+      movies: []
     };
-
-    // Tableau de référence des images.
-    this.refImages = [];
   }
 
   async componentDidMount() {
-    const articles = await getArticles();
-
     //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
       terms: "matrix", // Required string
@@ -48,9 +44,7 @@ class Home extends Component {
     console.log(firstFullDataMovie);
 
     this.setState({
-      articles,
-      //movies,
-      show: true
+      movies
     });
   }
 
@@ -58,43 +52,49 @@ class Home extends Component {
     TweenMax.to(this.refImages[i], 2, { opacity: 0 });
   }
 
+  onSearch = async () => {
+    if (this.title) {
+      const movies = await searchMovies(this.title.value);
+      this.setState({
+        movies: movies
+      });
+    }
+  };
+
+  showDetails() {
+    console.log("ok");
+  }
+
   render() {
-    const articles = this.state.articles;
+    const movies = this.state.movies;
+    console.log(movies);
     return (
-      <div className="Home">
-        <div className="Home-intro">
-          <div className="container">
-            <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
-                  <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
-                    <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
-                        <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
-                        />
-                        <div ref={img => (this.refImages[i] = img)}>
-                          <CardMedia
-                            className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
-                            overlayContentStyle={{ background: "transparent" }}
-                            overlayStyle={{ color: "#fff" }}
-                          />
-                        </div>
-                        <CardText>{article.excerpt}</CardText>
-                      </Link>
-                    </Card>
+      <Fragment>
+        <Search
+          onSearch={this.onSearch}
+          inputRef={title => (this.title = title)}
+        />
+
+        <div className="Home">
+          <TransitionGroup className="todo-list">
+            {movies.map((movies, i) => (
+              <Fade key={movies.imdb}>
+                <div className="movie-list">
+                  <div className="movie-list__image">
+                    <img src={movies.poster} alt="" />
                   </div>
-                </Fade>
-              ))}
-            </TransitionGroup>
-          </div>
+                  <div className="movie-list__content">
+                    <h3>{movies.title}</h3>
+                    <Link className="" to={`/details/${movies.imdb}`}>
+                      details
+                    </Link>
+                  </div>
+                </div>
+              </Fade>
+            ))}
+          </TransitionGroup>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }

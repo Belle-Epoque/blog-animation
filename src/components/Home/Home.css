@@ -1,42 +1,37 @@
 .Home {
-  margin-top: 40px;
+  padding: 50px;
+  margin: 0 auto;
+  float: left;
 }
 
-.Home-title {
-  font-size: 1.5em;
+.movie-list {
+  margin: 20px;
+  float: left;
+  width: 400px;
+  height: 100px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-.Home-intro {
-  font-size: large;
+.movie-list__image {
+  float: left;
+  height: 100%;
 }
 
-@keyframes Home-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.movie-list__image img {
+  height: 100%;
 }
 
-.Card {
+.movie-list__content {
+  padding: 10px;
+}
+.movie-list__content h3,
+p {
+  font-weight: lighter;
+  margin-bottom: 10px;
 }
 
-.Card-media {
-  padding-top: 50%;
-  width: 100%;
-  background-position: center;
-  background-size: cover;
-}
-
-.Card-link {
-  text-decoration: none;
-  display: block;
-}
-
-.Card {
-  text-align: left;
-  margin-bottom: 50px;
+.movie-list__content p:last-child {
+  font-size: 12px;
 }
 .fade-enter {
   opacity: 0.01;

@@ -1,0 +1,34 @@
+.details-container {
+  margin: 0 auto;
+  width: 920px;
+  padding: 20px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 100px;
+}
+
+.details-container__descrption {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.details-container__descrption h1 {
+  font-size: 40px;
+  font-weight: 100;
+}
+
+.details-container__descrption p {
+  font-weight: 200;
+}
+
+.details-container__descrption resume {
+  font-size: 11px;
+}
+
+.details-container__descrption li {
+  list-style: none;
+  font-weight: lighter;
+}

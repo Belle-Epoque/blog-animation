@@ -17,31 +17,13 @@ const Menu = ({ open, closeMenu }) => (
         transform: open ? `translateX(0)` : `translateX(-100%)`
       }}
     >
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/">
-          Home
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/about">
-          About
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/article/1">
-          Article #1
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/article/2">
-          Article #2
-        </Link>
-      </ListItem>
-      <ListItem>
-        <Link className="Menu-link" onClick={e => closeMenu()} to="/page">
-          Page
-        </Link>
-      </ListItem>
+      <Link className="Menu-link" onClick={e => closeMenu()} to="/">
+        <ListItem>Home</ListItem>
+      </Link>
+
+      <Link className="Menu-link" onClick={e => closeMenu()} to="/search">
+        <ListItem>Search</ListItem>
+      </Link>
     </List>
   </Fragment>
 );

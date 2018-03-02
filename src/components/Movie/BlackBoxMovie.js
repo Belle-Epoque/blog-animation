@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Motion, spring } from "react-motion";
 
-const BlackBox = ({ reverseDirection = false }) => (
+const BlackBoxMovie = ({ reverseDirection = false }) => (
   <Motion defaultStyle={{ scaleX: 1 }} style={{ scaleX: spring(0) }}>
     {interpolatingStyle => (
       <div
@@ -16,8 +16,8 @@ const BlackBox = ({ reverseDirection = false }) => (
   </Motion>
 );
 
-BlackBox.PropTypes = {
+BlackBoxMovie.PropTypes = {
   reverseDirection: PropTypes.bool
 };
 
-export default BlackBox;
+export default BlackBoxMovie;

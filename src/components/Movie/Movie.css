@@ -1,6 +1,7 @@
 .Article-img {
-  height: calc(100vh - 64px);
-  width: 100%;
+  margin: 20px auto;
+  height: 500px;
+  width: 20%;
   background-position: center;
   background-size: cover;
   position: relative;
@@ -22,4 +23,12 @@
   font-weight: 400;
   text-transform: upeprcase;
   margin-bottom: 30px;
+}
+.Article-Desc {
+  width: 70%;
+  margin: 0 auto;
+}
+.Article-Year {
+  width: 70%;
+  margin: 0 auto;
 }

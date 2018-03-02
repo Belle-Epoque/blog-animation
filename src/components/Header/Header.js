@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import AppBar from "material-ui/AppBar";
 import Menu from "./Menu.js";
+import {Link} from "react-router-dom";
 import "./Header.css";
 
 class Header extends Component {
@@ -28,7 +29,7 @@ class Header extends Component {
       <Fragment>
         <AppBar
           className="AppBar"
-          title="Blog"
+          title="IMDB Movies"
           onLeftIconButtonClick={() => this.handleClick()}
           iconElementLeft={
             <div className="Menu-icon">

@@ -1,5 +1,6 @@
 .Home {
-  margin-top: 40px;
+    padding-top: 40px;
+    background: #000;
 }
 
 .Home-title {
@@ -19,7 +20,13 @@
   }
 }
 
+.todo-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 .Card {
+    width: 30%;
 }
 
 .Card-media {
@@ -27,16 +34,21 @@
   width: 100%;
   background-position: center;
   background-size: cover;
+    height: 350px;
 }
 
 .Card-link {
   text-decoration: none;
   display: block;
+    background: rgba(255, 193, 7, 0.75);
 }
 
 .Card {
   text-align: left;
   margin-bottom: 50px;
+}
+.Card-Head span:first-of-type {
+
 }
 .fade-enter {
   opacity: 0.01;

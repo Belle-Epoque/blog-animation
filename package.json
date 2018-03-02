@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ajv": "^6.2.0",
     "classnames": "^2.2.5",
     "gsap": "^1.20.4",
     "material-ui": "^0.20.0",
@@ -12,7 +13,8 @@
     "react-motion": "^0.5.2",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
-    "react-transition-group": "^2.2.1"
+    "react-transition-group": "^2.2.1",
+    "uniquid": "^1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

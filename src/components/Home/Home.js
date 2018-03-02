@@ -10,6 +10,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getArticles, searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
+import uniquid from 'uniquid';
 import "./Home.css";
 
 const Fade = ({ children, ...props }) => (
@@ -37,19 +38,22 @@ class Home extends Component {
 
     //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
-      terms: "matrix", // Required string
+      id: uniquid(), // uniquId
+      terms: "one piece", // Required string
       //year: 1999, // optional number
       page: 1 // optional number (1 - 100)
       //type: "movie" // optional string ("series" || "movie" || "episode")
     });
+
     console.log("DEBUG", movies);
+
     const firstFullDataMovie =
       movies.length > 0 ? await getMovie(movies[0].imdb) : {};
     console.log(firstFullDataMovie);
 
     this.setState({
       articles,
-      //movies,
+      movies,
       show: true
     });
   }
@@ -58,40 +62,47 @@ class Home extends Component {
     TweenMax.to(this.refImages[i], 2, { opacity: 0 });
   }
 
+  myConsole
+
   render() {
     const articles = this.state.articles;
+    const movies = this.state.movies;
+
+    console.log('articles', articles)
+    console.log('movies', movies)
+
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
-            <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+            {<TransitionGroup className="todo-list">
+              {movies.map((movie, i) => (
+                <Fade key={movie.id}>
                   <div className="Card">
                     <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
+                      <Link to={`/article/${movie.id}`} className="Card-link">
                         <CardHeader
                           title="Bob"
                           subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
+                          avatar="https://myanimelist.cdn-dena.com/images/characters/8/73473.jpg"
                         />
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
+                            style={{ backgroundImage: `url(${movie.poster})` }}
+                            overlay={<CardTitle title={movie.title} />}
                             overlayContentStyle={{ background: "transparent" }}
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{article.excerpt}</CardText>
+                        <CardText>{movie.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>
                 </Fade>
               ))}
-            </TransitionGroup>
+            </TransitionGroup>}
           </div>
         </div>
       </div>

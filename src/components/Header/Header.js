@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import AppBar from "material-ui/AppBar";
+import FontIcon from "material-ui/FontIcon";
 import Menu from "./Menu.js";
 import "./Header.css";
 
@@ -28,9 +29,9 @@ class Header extends Component {
       <Fragment>
         <AppBar
           className="AppBar"
-          title="Blog"
+          title="Catalogue de films"
           onLeftIconButtonClick={() => this.handleClick()}
-          iconElementLeft={
+          onElementLeft={
             <div className="Menu-icon">
               <span />
               <span />
@@ -38,11 +39,9 @@ class Header extends Component {
             </div>
           }
         />
-
         <Menu open={this.state.open} closeMenu={() => this.forceCloseMenu()} />
       </Fragment>
     );
   }
 }
-
 export default Header;

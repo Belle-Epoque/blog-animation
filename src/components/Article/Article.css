@@ -23,3 +23,12 @@
   text-transform: upeprcase;
   margin-bottom: 30px;
 }
+
+.Article-actors {
+  font-style: italic;
+}
+
+.Article-description {
+  margin-top: 30px;
+  margin-bottom: 70px;
+}

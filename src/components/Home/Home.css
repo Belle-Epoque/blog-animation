@@ -19,8 +19,7 @@
   }
 }
 
-.Card {
-}
+.Card {}
 
 .Card-media {
   padding-top: 50%;
@@ -38,6 +37,7 @@
   text-align: left;
   margin-bottom: 50px;
 }
+
 .fade-enter {
   opacity: 0.01;
 }
@@ -54,4 +54,20 @@
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }

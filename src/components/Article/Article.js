@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { getArticle } from "../../api/api";
+import { getMovie } from "../../api/api";
 import BlackBox from "./BlackBox.js";
 import "./Article.css";
 
@@ -23,12 +23,15 @@ class Article extends Component {
   }
 
   async refreshSingleArticle(articleId) {
-    const filterArticle = await getArticle(articleId);
+
+    const filterArticle = await getMovie(articleId);
 
     if (!filterArticle) {
       // This article doesn't exist.
       return;
     }
+
+    console.log(filterArticle);
 
     this.setState({
       article: filterArticle
@@ -36,11 +39,11 @@ class Article extends Component {
   }
 
   render() {
-    const { article: { title, body, img } } = this.state;
+    const { article: { title, plot, poster } } = this.state;
 
     return (
       <Fragment>
-        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
+        <div className="Article-img" style={{ backgroundImage: `url(${poster})` }}>
           <BlackBox reverseDirection={false} />
           <BlackBox reverseDirection={true} />
           <BlackBox reverseDirection={false} />
@@ -49,7 +52,7 @@ class Article extends Component {
         <div className="container">
           <div className="Article-body">
             <h1 className="Article-title">{title}</h1>
-            <p>{body}</p>
+            <p>{plot}</p>
           </div>
         </div>
       </Fragment>

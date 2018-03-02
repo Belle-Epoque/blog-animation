@@ -19,9 +19,6 @@
   }
 }
 
-.Card {
-}
-
 .Card-media {
   padding-top: 50%;
   width: 100%;
@@ -37,7 +34,30 @@
 .Card {
   text-align: left;
   margin-bottom: 50px;
+  max-width: 40%;
+  width: 100%;
 }
+
+.CardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.Card:hover .Card-media{
+  background-size: 110%;
+}
+
+@media screen and (max-width: 780px) {
+  .CardContainer {
+    justify-content: center;
+  }
+
+  .Card {
+    max-width: 80%;
+  }
+}
+
 .fade-enter {
   opacity: 0.01;
 }
@@ -54,4 +74,88 @@
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: space-around;
+  width: 20%;
+  margin: 0 auto 60px;
+}
+
+.pagination p {
+  cursor: pointer;
+}
+
+.pagination p:hover {
+  text-decoration: underline;
+}
+
+.searchInput {
+  height: 30px;
+  border:none;
+  background-color: transparent;
+  outline: none;
+  margin: 30px 0 10px;
+  font-size: 16px;
+}
+
+.searchInput::placeholder {
+  font-size: 16px;
+}
+
+.searchButton {
+  border:1px solid black;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.searchButton:hover {
+  background-color:#ececec;
+}
+
+.type {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.title {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.type p {
+  margin-top: 7px;
+}
+
+select{
+  margin-left: 20px;
+  outline:none;
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+   background-position: 97% center;
+   background-repeat: no-repeat;
+   border: 1px solid #AAA;
+   color: #555;
+   font-size: inherit;
+   overflow: hidden;
+   padding: 5px 10px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 150px;
+}
+
+.doSearch {
+  position: relative;
+  left:-110%;
+}
+
+.remove {
+  display: none;
 }

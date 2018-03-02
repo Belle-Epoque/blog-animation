@@ -22,6 +22,10 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
+    this.searchBlock = null;
+    this.afficher = null;
+    this.remove = null;
+
     this.state = {
       movies: [],
       show: false,
@@ -45,9 +49,17 @@ class Home extends Component {
     });
   }
 
-  // animate(i) {
-  //   TweenMax.to(this.refImages[i], 2, { opacity: 0 });
-  // }
+  anim() {
+    TweenMax.to(this.afficher, 0, { display:"none" });
+    TweenMax.to(this.remove, 0, { display:"block" });
+    TweenMax.to(this.searchBlock, 0.6, { left:0+'%' });
+  }
+
+  animRemove() {
+    TweenMax.to(this.afficher, 0, { display:"block" });
+    TweenMax.to(this.remove, 0, { display:"none" });
+    TweenMax.to(this.searchBlock, 0.6, { left:-100+'%' });
+  }
 
   // RESULT SEARCH & TYPE
   async result(movies) {
@@ -105,49 +117,60 @@ class Home extends Component {
 
   render() {
     const movies = this.state.movies;
-    // console.log(movies);
 
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
+          <p onClick={() => this.anim()}
+            ref={(afficher) => { this.afficher = afficher; }}>
+            Afficher les filtres de recherche</p>
+          <p className='remove' 
+            onClick={() => this.animRemove()}
+            ref={(remove) => { this.remove = remove; }}>
+            Enlever les filtres de recherche</p>
+          <div className="doSearch"
+               ref={(searchBlock) => { this.searchBlock = searchBlock; }}> 
+            <h2>Rechercher un film</h2>
+            {/*SEARCH*/}
+              <input className="searchInput"
+                     placeholder="Nom du film"
+                     onChange={() => this.valueTextInput()} 
+                     ref={(input) => { this.textInput = input; }} />
+              <button className="searchButton"
+                      onClick={() => this.result(movies) }>Recherher</button>
 
-        {/*SELECT BY TYPE*/}
-            <select onChange={() => this.result(movies) } ref={(select) => { this.textSelect = select; }}>
-              <option value=''>all</option>
-              <option value='series'>series</option>
-              <option value='movie'>movie</option>
-              {/*<option>episode</option>*/}
-            </select>
 
-          {/*SEARCH*/}
-            <input placeholder="Nom du film"
-                   onChange={() => this.valueTextInput()} 
-                   ref={(input) => { this.textInput = input; }} />
-            <button onClick={() => this.result(movies) }>Search </button>
+            {/*SELECT BY TYPE*/}
+            <div className='type'>
+              <p>Par type</p>
+              <select onChange={() => this.result(movies) } ref={(select) => { this.textSelect = select; }}>
+                <option value=''>all</option>
+                <option value='series'>series</option>
+                <option value='movie'>movie</option>
+              </select>
+            </div>
+          </div>
 
           {/*AFFICHAGE*/}
-            <TransitionGroup className="todo-list">
+          <h2 className="title">Liste</h2>
+            <TransitionGroup className="CardContainer">
               {movies.map((movie, i) => (
                 <Fade key={movie.imdb}>
                   <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
                       <Link to={`/movie/${movie.imdb}`} className="Card-link">
                         <CardHeader
                           title={movie.title}
                         />
-                        <h1>{movie.title}</h1>
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
                             style={{ backgroundImage: `url(${movie.poster})` }}
-                            overlay={<CardTitle title={movie.title} />}
                             overlayContentStyle={{ background: "transparent" }}
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{movie.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>
@@ -155,17 +178,20 @@ class Home extends Component {
               ))}
             </TransitionGroup>
           </div>
-          { 
-            this.state.page != 1 &&
-            <button onClick={() => this.prevPage()}>Prev</button>
-          }
 
-          <p>{this.state.page}</p>
+          <div className="pagination">
+            { 
+              this.state.page != 1 &&
+              <p onClick={() => this.prevPage()}>Prev</p>
+            }
 
-          { 
-            this.state.page < 100 &&
-            <button onClick={() => this.nextPage()}>Next</button>
-          }
+            <h4>{this.state.page}</h4>
+
+            { 
+              this.state.page < 100 &&
+              <p onClick={() => this.nextPage()}>Next</p>
+            }
+          </div>
         </div>
       </div>
     );

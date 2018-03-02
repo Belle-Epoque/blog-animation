@@ -1,5 +1,5 @@
 .Article-img {
-  height: calc(100vh - 64px);
+  height: 60vh;
   width: 100%;
   background-position: center;
   background-size: cover;
@@ -18,8 +18,23 @@
 }
 
 .Article-title {
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 400;
-  text-transform: upeprcase;
+  text-transform: uppercase;
   margin-bottom: 30px;
+}
+
+.Article-body p,
+.Article-body a {
+  font-size: 1.4rem;
+  color: black;
+  text-decoration: none;
+}
+
+.Article-body a {
+  cursor: pointer;
+}
+
+.Article-body a:hover {
+  text-decoration: underline;
 }

@@ -3,7 +3,7 @@
 }
 
 body {
-  background: #f2f3f4;
+  background: hsla(0, 0%, 18%, 0.1);
 }
 .container {
   /* On centre */
@@ -20,8 +20,8 @@ body {
 * Comme la dite marge est exprimée en pourcentage,
 * on l'augmente sur les devices moins larges.
 */
-@media only screen and (min-width: 993px){
+@media only screen and (min-width: 993px) {
   .container {
-      width: 85%;
+    width: 85%;
   }
 }

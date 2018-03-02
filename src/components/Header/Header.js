@@ -1,5 +1,9 @@
 import React, { Component, Fragment } from "react";
 import AppBar from "material-ui/AppBar";
+import SelectField from "material-ui/SelectField";
+import SearchBar from "material-ui-search-bar";
+//import { SearchBox, SearchkitComponent, SearchkitProvider } from "searchkit";
+import Select from "../Select/Select";
 import Menu from "./Menu.js";
 import "./Header.css";
 
@@ -28,7 +32,7 @@ class Header extends Component {
       <Fragment>
         <AppBar
           className="AppBar"
-          title="Blog"
+          title="Movies"
           onLeftIconButtonClick={() => this.handleClick()}
           iconElementLeft={
             <div className="Menu-icon">
@@ -38,8 +42,16 @@ class Header extends Component {
             </div>
           }
         />
-
         <Menu open={this.state.open} closeMenu={() => this.forceCloseMenu()} />
+        <SearchBar
+          onChange={this.handleChange}
+          onRequestSearch={() => console.log("onRequestSearch")}
+          style={{
+            margin: "0 auto",
+            maxWidth: 400
+          }}
+        />
+        <Select />
       </Fragment>
     );
   }

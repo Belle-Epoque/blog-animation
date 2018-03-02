@@ -42,6 +42,11 @@ const Menu = ({ open, closeMenu }) => (
           Page
         </Link>
       </ListItem>
+      <ListItem>
+        <Link className="Menu-link" onClick={e => closeMenu()} to="/movie">
+          Movie
+        </Link>
+      </ListItem>
     </List>
   </Fragment>
 );

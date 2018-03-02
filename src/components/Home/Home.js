@@ -7,7 +7,7 @@ import {
   CardText
 } from "material-ui/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { getArticles, searchMovies, getMovie } from "../../api/api";
+import { searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
 import { TweenMax } from "gsap";
 import "./Home.css";
@@ -23,7 +23,6 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      articles: [],
       movies: [],
       show: false
     };
@@ -33,8 +32,6 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const articles = await getArticles();
-
     //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
       terms: "matrix", // Required string
@@ -48,8 +45,7 @@ class Home extends Component {
     console.log(firstFullDataMovie);
 
     this.setState({
-      articles,
-      //movies,
+      movies,
       show: true
     });
   }
@@ -60,32 +56,33 @@ class Home extends Component {
 
   render() {
     const articles = this.state.articles;
+    const movies = this.state.movies;
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
             <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+              {movies.map((movies, i) => (
+                <Fade key={movies.id}>
                   <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
+                    {/* <button onClick={() => this.animate(i)}>Click</button> */}
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
-                        <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
+                      <Link to={`/movie/${movies.id}`} className="Card-link">
+                        {/* <CardHeader
+                          title="Marley"
+                          subtitle="Rédacteur"
                           avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
+                        /> */}
+                        {/* <div ref={img => (this.refImages[i] = img)}> */}
+                        <CardMedia
+                          className="Card-media"
+                          style={{ backgroundImage: `url(${movies.poster})` }}
+                          overlay={<CardTitle title={movies.title} />}
+                          overlayContentStyle={{ background: "transparent" }}
+                          overlayStyle={{ color: "#fff" }}
                         />
-                        <div ref={img => (this.refImages[i] = img)}>
-                          <CardMedia
-                            className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
-                            overlayContentStyle={{ background: "transparent" }}
-                            overlayStyle={{ color: "#fff" }}
-                          />
-                        </div>
-                        <CardText>{article.excerpt}</CardText>
+                        {/* </div> */}
+                        <CardText>{movies.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>

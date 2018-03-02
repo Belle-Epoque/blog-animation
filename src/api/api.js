@@ -1,4 +1,5 @@
 import mockArticles from "./mockArticles.json";
+import mockMovies from "./mockMovies.json";
 import * as omdb from "./omdb";
 
 const USE_DISTANT_API = false;

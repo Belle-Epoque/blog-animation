@@ -1,9 +1,12 @@
 .Header {
-  background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
   margin-bottom: 50px;
+}
+
+.AppBar h1 {
+  color: #FF0000 !important;
 }
 
 .AppBar {
@@ -71,7 +74,7 @@
   position: absolute;
   height: 3px;
   width: 100%;
-  background: #fff;
+  background: red;
   opacity: 1;
   left: 0;
   transform: rotate(0deg);

@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardMedia,
   CardTitle,
-  CardText
+  CardText,
 } from "material-ui/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getArticles, searchMovies, getMovie } from "../../api/api";

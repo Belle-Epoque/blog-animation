@@ -13,7 +13,7 @@ import { TweenMax } from "gsap";
 import "./Home.css";
 
 const Fade = ({ children, ...props }) => (
-  <CSSTransition {...props} timeout={3000} classNames="fade">
+  <CSSTransition {...props} timeout={1500} classNames="fade">
     {children}
   </CSSTransition>
 );
@@ -24,7 +24,10 @@ class Home extends Component {
 
     this.state = {
       movies: [],
-      show: false
+      show: false,
+      input:'',
+      valueType:'',
+      page: 1,
     };
 
     // Tableau de référence des images.
@@ -32,56 +35,77 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
-      terms: "matrix", // Required string
-      //year: 1999, // optional number
+      terms: "blade", // Required string
       page: 1 // optional number (1 - 100)
-      //type: "movie" // optional string ("series" || "movie" || "episode")
     });
-    console.log("DEBUG", movies);
-    const firstFullDataMovie =
-      movies.length > 0 ? await getMovie(movies[0].imdb) : {};
-    console.log(firstFullDataMovie);
     this.setState({
       movies,
       show: true
     });
   }
 
-  animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+  // animate(i) {
+  //   TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+  // }
+
+  // RESULT SEARCH & TYPE
+  async result(movies) {
+    this.resultAll(1);
   }
 
-  async type(movies) {
+  async resultAll(page) {
     let value = this.textSelect.value;
-
-    if (value === 'all') {
+    let inputText = this.state.input;
+    if (inputText ===  '') {
       const filterType = await searchMovies({
-        terms: "matrix", // Required string
-        page: 1 // optional number (1 - 100)
+        terms: 'blade', // Required string
+        type: value,
+        page: page
       });
       this.setState({
-        movies: filterType
+        movies: filterType,
       })
     } else {
       const filterType = await searchMovies({
-        terms: "matrix", // Required string
+        terms: inputText, // Required string
         type: value,
-        //year: 1999, // optional number
-        page: 1 // optional number (1 - 100)
-        //type: "movie" // optional string ("series" || "movie" || "episode"),
+        page: page
       });
-
       this.setState({
-        movies: filterType
+        movies: filterType,
       })
     }
   }
 
+  valueTextInput() {
+    let input = this.textInput.value;
+    this.setState({
+      input
+    });
+  };
+
+  // RESULT PREV PAGE
+  prevPage() {
+    let prevPage = this.state.page -1;
+    this.setState({
+      page: prevPage
+    })
+    this.resultAll(prevPage);
+  }
+
+  // RESULT NEXT PAGE
+  nextPage() {
+    let nextPage = this.state.page +1;
+     this.setState({
+      page: nextPage
+    })
+    this.resultAll(nextPage);
+  }
+
   render() {
     const movies = this.state.movies;
-    console.log(movies);
+    // console.log(movies);
 
     return (
       <div className="Home">
@@ -89,16 +113,18 @@ class Home extends Component {
           <div className="container">
 
         {/*SELECT BY TYPE*/}
-            <select onChange={() => this.type(movies) } ref={(select) => { this.textSelect = select; }}>
-              <option>all</option>
-              <option>series</option>
-              <option>movie</option>
-              <option>episode</option>
+            <select onChange={() => this.result(movies) } ref={(select) => { this.textSelect = select; }}>
+              <option value=''>all</option>
+              <option value='series'>series</option>
+              <option value='movie'>movie</option>
+              {/*<option>episode</option>*/}
             </select>
 
           {/*SEARCH*/}
-            <input placeholder="Nom du film" />
-            <button>Search </button>
+            <input placeholder="Nom du film"
+                   onChange={() => this.valueTextInput()} 
+                   ref={(input) => { this.textInput = input; }} />
+            <button onClick={() => this.result(movies) }>Search </button>
 
           {/*AFFICHAGE*/}
             <TransitionGroup className="todo-list">
@@ -129,6 +155,17 @@ class Home extends Component {
               ))}
             </TransitionGroup>
           </div>
+          { 
+            this.state.page != 1 &&
+            <button onClick={() => this.prevPage()}>Prev</button>
+          }
+
+          <p>{this.state.page}</p>
+
+          { 
+            this.state.page < 100 &&
+            <button onClick={() => this.nextPage()}>Next</button>
+          }
         </div>
       </div>
     );

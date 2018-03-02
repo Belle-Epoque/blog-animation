@@ -16,8 +16,6 @@ class MovieCard extends Component {
         this.state = {
           movieInfos: null
         } 
-        // On initialise notre référence pour la récupérer
-        this.movieImg = null;
     }
 
     componentDidMount(){
@@ -50,8 +48,12 @@ class MovieCard extends Component {
                   subtitle={(typeof(movie.year) === 'number') ? `${movie.year}` : ''}
                 />
                 <CardText>
-                  <p className="MovieAuthor">Réalisé par {(movieInfos) ? movieInfos.director : ''}</p>
-                  <p className="MovieActors">Avec {(movieInfos) ? movieInfos.actors.join(', ') : ''}</p>
+                  <p className="MovieAuthor">
+                    {(movieInfos && movieInfos.director) ? `Réalisé par ${movieInfos.director}` : ''}
+                  </p>
+                  <p className="MovieActors">
+                    Avec {(movieInfos) ? movieInfos.actors.join(', ') : ''}
+                  </p>
                 </CardText>
               </Link>
             </Card>

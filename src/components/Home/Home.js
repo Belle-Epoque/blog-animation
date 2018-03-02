@@ -2,26 +2,21 @@ import React, { Component } from "react";
 import { searchMovies, getMovie } from "../../api/api";
 import uniqid from 'uniqid';
 
-import {GridList} from 'material-ui/GridList';
-// import { CSSTransition, TransitionGroup } from "react-transition-group";
-// import { TweenMax } from "gsap";
+import { GridList } from 'material-ui/GridList';
 
 import MovieCard from '../MovieCard/MovieCard';
+import FiltersSelect from '../FiltersSelect/FiltersSelect'
 
 import "./Home.css";
-
-// const Fade = ({ children, ...props }) => (
-//   <CSSTransition {...props} timeout={3000} classNames="fade">
-//     {children}
-//   </CSSTransition>
-// );
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: []
+      movies: [],
+      filter: null,
+      currentPage: 1
     };
   }
 
@@ -32,7 +27,8 @@ class Home extends Component {
     });
 
     this.setState({
-      movies
+      movies,
+      currentPage: 1
     });
   }
 
@@ -48,32 +44,62 @@ class Home extends Component {
    return movieInfos;
   };
 
-  // animate(i) {
-  //   TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+  async filterMovies(event, key, value){
+    let itemType = value === 'series' ? 'series' : 'movie';
+
+    const search = await searchMovies({
+      terms: "drive", 
+      type: itemType,
+      page: 1
+    });
+
+    this.setState({
+      movies: search,
+      filter: value
+    })
+  }
+
+  // async handleScroll(){
+  //   const dctHeight = document.body.clientHeight;
+  //   const { movies, currentPage } = this.state;
+  //   let scrollPosition = window.scrollY;
+    
+  //   if (window.scrollY < dctHeight - (window.innerHeight + 100)){ return }
+
+  //   const nextItems = await searchMovies({
+  //     terms: "drive", 
+  //     page: currentPage + 1
+  //   });
+  
+  //   this.setState({
+  //     movies: [...this.state.movies, nextItems],
+  //     currentPage: currentPage + 1
+  //   })
+    
+  //   console.log('scroll', window.scrollY);
   // }
 
   render() {
     const movies = this.state.movies;
-    
+
     return (
       <div className="Home">
         <div className="container">
+          <FiltersSelect  
+            onFilterChange={(event, key, value) => this.filterMovies(event, key, value)}
+          />
           <GridList 
             cellHeight="auto"
             padding={20}
             >
-            {/* <TransitionGroup className="todo-list"> */}
               {movies.map((movie, i) => (
-                  // <Fade key={article.id}>
                   <MovieCard 
                     key={uniqid()} 
                     movie={movie} 
                     movieId={i}
                     fullInfos={(movieId) => this.getMovieInfos(movieId)}/>
-                  // </Fade>
                 )
               )}
-            {/* </TransitionGroup> */}
           </GridList>
         </div>
       </div>

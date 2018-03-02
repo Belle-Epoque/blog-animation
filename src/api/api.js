@@ -1,7 +1,8 @@
 import mockArticles from "./mockArticles.json";
 import * as omdb from "./omdb";
+import Home from "../components/Home/Home";
 
-const USE_DISTANT_API = false;
+const USE_DISTANT_API = true;
 const DEFAULT_TIMEOUT = 200;
 
 /**
@@ -31,7 +32,7 @@ export const getArticles = async (timeout = DEFAULT_TIMEOUT) => {
   // Get articles from external API (caution: no image).
   // See json-server node module to build a more complex fake api.
   if (USE_DISTANT_API) {
-    return await getContentFromDistantFakeApi();
+    return await getContentWithDelay();
   }
 
   // Get local json with a delay.
@@ -50,9 +51,10 @@ export const getArticle = async (articleId, timeout = DEFAULT_TIMEOUT) => {
   let res = {};
 
   // Get articles from external API (caution: no image).
+  
   // See json-server node module to build a more complex fake api.
   if (USE_DISTANT_API) {
-    res = await getContentFromDistantFakeApi();
+    res = await getContentWithDelay(articleId);
   } else {
     // Get local json with a delay.
     res = await getContentWithDelay(mockArticles, timeout);

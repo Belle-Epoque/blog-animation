@@ -19,24 +19,33 @@
   }
 }
 
-.Card {
-}
 
 .Card-media {
-  padding-top: 50%;
-  width: 100%;
-  background-position: center;
-  background-size: cover;
+    padding-top: 100%;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
 }
 
 .Card-link {
-  text-decoration: none;
-  display: block;
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+.Card:hover {
+    -o-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    transition: transform .5s;
 }
 
 .Card {
   text-align: left;
+  float: left;
   margin-bottom: 50px;
+    min-height: 460px;
 }
 .fade-enter {
   opacity: 0.01;
@@ -54,4 +63,8 @@
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
+}
+
+DropDownMenu{
+    width: 200px;
 }

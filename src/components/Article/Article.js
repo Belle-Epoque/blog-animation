@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from "react";
-import { getArticle } from "../../api/api";
 import BlackBox from "./BlackBox.js";
+import { getArticle, searchMovies, getMovie } from "../../api/api";
 import "./Article.css";
 
 class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {}
+      article: [],
+      movies: []
     };
   }
 

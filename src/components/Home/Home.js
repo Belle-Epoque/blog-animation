@@ -6,6 +6,10 @@ import {
   CardTitle,
   CardText
 } from "material-ui/Card";
+
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getArticles, searchMovies, getMovie } from "../../api/api";
 import { Link } from "react-router-dom";
@@ -37,10 +41,10 @@ class Home extends Component {
 
     //const movies = await searchMovies("matrix");
     const movies = await searchMovies({
-      terms: "matrix", // Required string
-      //year: 1999, // optional number
-      page: 1 // optional number (1 - 100)
-      //type: "movie" // optional string ("series" || "movie" || "episode")
+       terms: "Evil", // Required string
+       year: "", // optional number
+       page: 1, // optional number (1 - 100)
+       type: "", // optional string ("series" || "movie" || "episode")
     });
     console.log("DEBUG", movies);
     const firstFullDataMovie =
@@ -49,28 +53,39 @@ class Home extends Component {
 
     this.setState({
       articles,
-      //movies,
+      movies,
       show: true
     });
   }
 
   animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+    TweenMax.to(this.refImages[i], 2, { opacity: 0 });   
   }
-
+    
+  async getMoviesDetailled(movies){
+      movies.map(async movie => await this.getMoviesDetailled(movies))
+  }
+    
   render() {
-    const articles = this.state.articles;
+    const movies = this.state.movies;
     return (
       <div className="Home">
         <div className="Home-intro">
           <div className="container">
-            <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
-                  <div className="Card">
+            <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+                  <MenuItem value={1} primaryText="Never" />
+                  <MenuItem value={2} primaryText="Every Night" />
+                  <MenuItem value={3} primaryText="Weeknights" />
+                  <MenuItem value={4} primaryText="Weekends" />
+                  <MenuItem value={5} primaryText="Weekly" />
+            </DropDownMenu>
+           <TransitionGroup className="todo-list">
+              {movies.map((movie, i) => (
+                <Fade key={movie.id}>
+                  <div className="Card col-md-4">
                     <button onClick={() => this.animate(i)}>Click</button>
-                    <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
+                    <Card style="min-height: 460px;">
+                      <Link to={`/movie/${movie.id}`} className="Card-link">
                         <CardHeader
                           title="Bob"
                           subtitle="Web dev"
@@ -79,13 +94,10 @@ class Home extends Component {
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
-                            overlayContentStyle={{ background: "transparent" }}
-                            overlayStyle={{ color: "#fff" }}
+                            style={{ backgroundImage: `url(${movie.poster})` }}
                           />
                         </div>
-                        <CardText>{article.excerpt}</CardText>
+                        <CardTitle className="movies-titre" title={movie.title} />
                       </Link>
                     </Card>
                   </div>

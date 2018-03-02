@@ -1,9 +1,12 @@
 .Article-img {
   height: calc(100vh - 64px);
-  width: 100%;
+  width: 25%;
+  margin-top: 20px;
+  margin-left: 1%;
   background-position: center;
   background-size: cover;
   position: relative;
+  float: left;
 }
 
 .black-box {
@@ -13,8 +16,15 @@
   transform-origin: right;
 }
 
+.container {
+}
+
 .Article-body {
   margin-top: 30px;
+  width: 70%;
+  margin-left: 8%;
+  margin-top: 150px;
+  float: left;
 }
 
 .Article-title {

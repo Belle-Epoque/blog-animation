@@ -23,7 +23,8 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      articles: [],
+      // articles: [],
+      param: 1,
       movies: [],
       show: false
     };
@@ -32,60 +33,73 @@ class Home extends Component {
     this.refImages = [];
   }
 
-  async componentDidMount() {
-    const articles = await getArticles();
+  prev() {
+    this.setState(prevState => ({
+      param: prevState.param - 1
+    }));
+  }
 
-    //const movies = await searchMovies("matrix");
-    const movies = await searchMovies({
-      terms: "matrix", // Required string
-      //year: 1999, // optional number
-      page: 1 // optional number (1 - 100)
-      //type: "movie" // optional string ("series" || "movie" || "episode")
-    });
-    console.log("DEBUG", movies);
+  next() {
+    this.setState(nextState => ({
+      param: nextState.param + 1
+    }));
+  }
+
+  async componentDidMount() {
+
+  let movies = await searchMovies({
+    terms: "matrix", 
+    page: this.state.param 
+  });
+
     const firstFullDataMovie =
       movies.length > 0 ? await getMovie(movies[0].imdb) : {};
-    console.log(firstFullDataMovie);
 
     this.setState({
-      articles,
-      //movies,
+      // articles,
+      param: this.state.param,
+      movies,
       show: true
     });
   }
 
-  animate(i) {
-    TweenMax.to(this.refImages[i], 2, { opacity: 0 });
-  }
+  // animate(i) {
+  //   TweenMax.to(this.refImages[i], 2, { opacity: 0 });
+  // }
 
   render() {
-    const articles = this.state.articles;
+    const movies = this.state.movies;
+    // const articles = this.state.articles;
     return (
       <div className="Home">
         <div className="Home-intro">
+          <button onClick={() => this.prev()}>
+            Prev
+          </button>
+          <button onClick={() => this.next()}>
+            Next
+          </button>
           <div className="container">
             <TransitionGroup className="todo-list">
-              {articles.map((article, i) => (
-                <Fade key={article.id}>
+              {movies.map((movies, i) => (
+                <Fade key={movies.imdb}>
                   <div className="Card">
-                    <button onClick={() => this.animate(i)}>Click</button>
                     <Card>
-                      <Link to={`/article/${article.id}`} className="Card-link">
+                      <Link to={`/movies/${movies.imdb}`} className="Card-link">
                         <CardHeader
-                          title="Bob"
-                          subtitle="Web dev"
-                          avatar="https://cdn.drawception.com/images/avatars/569903-A55.jpg"
+                          title= {movies.title}
+                          subtitle= {movies.year}
                         />
                         <div ref={img => (this.refImages[i] = img)}>
                           <CardMedia
                             className="Card-media"
-                            style={{ backgroundImage: `url(${article.img})` }}
-                            overlay={<CardTitle title={article.title} />}
+                            style={{ backgroundImage: `url(${movies.poster})` }}
+                            overlay={<CardTitle title={movies.title} />}
                             overlayContentStyle={{ background: "transparent" }}
                             overlayStyle={{ color: "#fff" }}
                           />
                         </div>
-                        <CardText>{article.excerpt}</CardText>
+                        <CardText>{movies.excerpt}</CardText>
                       </Link>
                     </Card>
                   </div>

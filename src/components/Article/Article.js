@@ -1,55 +1,40 @@
 import React, { Component, Fragment } from "react";
-import { getArticle } from "../../api/api";
+import { getMovie } from "../../api/api";
 import BlackBox from "./BlackBox.js";
 import "./Article.css";
 
-class Article extends Component {
+class Movies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {}
+      movies: {}
     };
   }
 
-  componentDidMount() {
-    this.refreshSingleArticle(this.props.match.params.number);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.number !== this.props.match.params.number) {
-      // Fix bug: force to refresh article state when article id change.
-      this.refreshSingleArticle(nextProps.match.params.number);
-    }
-  }
-
-  async refreshSingleArticle(articleId) {
-    const filterArticle = await getArticle(articleId);
-
-    if (!filterArticle) {
-      // This article doesn't exist.
-      return;
-    }
-
+  async componentDidMount() {
+    const filterMovies = await getMovie(this.props.match.params.number);
+    // this.refreshSingleMovies(this.props.match.params.number);
+    console.log(filterMovies);
     this.setState({
-      article: filterArticle
+      movies: filterMovies
     });
   }
 
+
+
   render() {
-    const { article: { title, body, img } } = this.state;
+    const { movies } = this.state;
+    console.log(movies);
 
     return (
-      <Fragment>
-        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
+      <Fragment> 
+        <div className="Article-img" style={{ backgroundImage: `url(${movies.poster})`  }}>
         </div>
         <div className="container">
           <div className="Article-body">
-            <h1 className="Article-title">{title}</h1>
-            <p>{body}</p>
+            <h1 className="Article-title">{movies.title}</h1>
+            <p className="Article-plot">{movies.plot}</p>
+            <p className="Article-actors">Directors : {movies.director}</p>
           </div>
         </div>
       </Fragment>
@@ -57,4 +42,4 @@ class Article extends Component {
   }
 }
 
-export default Article;
+export default Movies;

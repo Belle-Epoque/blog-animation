@@ -45,16 +45,6 @@ class Home extends Component {
 		TweenMax.to(this.refImages[i], 2, { opacity: 0 });
 	}
 
-	handleScroll = () => {
-		if (
-			document.documentElement.scrollHeight - document.documentElement.scrollTop ===
-			document.documentElement.clientHeight
-		) {
-			this.setState({ page: this.state.page + 1 });
-			this.handleSearch(this.titleSearch.value, this.yearSearch.value, this.catSearch.value);
-		}
-	};
-
 	async handleSearch(title = 'harry', year = 0, cat = null) {
 		let movies = null;
 

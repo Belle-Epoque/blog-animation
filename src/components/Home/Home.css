@@ -20,6 +20,15 @@
 }
 
 .Card {
+  display: inline-block;
+  width: 30%;
+  margin: 1.5%;
+  transition: width .2s;
+}
+
+.Card:hover {
+  width: 31%;
+  transition: width .2s;
 }
 
 .Card-media {
@@ -27,6 +36,7 @@
   width: 100%;
   background-position: center;
   background-size: cover;
+  height: 300px;
 }
 
 .Card-link {
@@ -54,4 +64,32 @@
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
+}
+
+@media only screen and (max-width: 768px) {
+  .Card {
+    display: inline-block;
+    width: 45%;
+    margin: 2.5%;
+  }
+
+  .Card:hover {
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .Card {
+    display: inline-block;
+    width: 90%;
+    margin: 5%;
+  }
+
+  .Card:hover {
+    width: 90%;
+  }
+
+  .Card-media {
+    height: 375px;
+  }
 }

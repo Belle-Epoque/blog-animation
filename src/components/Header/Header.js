@@ -28,7 +28,7 @@ class Header extends Component {
       <Fragment>
         <AppBar
           className="AppBar"
-          title="Blog"
+          title="Scuds Search Engine"
           onLeftIconButtonClick={() => this.handleClick()}
           iconElementLeft={
             <div className="Menu-icon">

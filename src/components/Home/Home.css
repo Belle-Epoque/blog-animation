@@ -19,25 +19,75 @@
   }
 }
 
-.Card {
+label {
+  font-size: 12px;
+  margin-right: 5px; 
 }
 
-.Card-media {
-  padding-top: 50%;
+input {
+  padding: 0 5px;
+  height: 25px;
+  border: 1px #dedede;
+  border-radius: 3px;
+  outline: none;
+}
+
+input, select {
+  margin-right: 15px; 
+}
+
+.container-movies {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container-poster {
+  height: 350px;
+}
+
+.poster {
   width: 100%;
-  background-position: center;
-  background-size: cover;
+  height: 350px;
+}
+
+.movie-card {
+  width: 100%;
+  box-shadow: 0 0 20px 0 #9b9b9b;
 }
 
 .Card-link {
+  width: 20%;
+  margin: 2.5%;
   text-decoration: none;
   display: block;
+
 }
 
-.Card {
-  text-align: left;
-  margin-bottom: 50px;
+.card {
+  color: black;
 }
+
+.infos-container {
+  height: 70px;
+}
+
+.title-movie {
+  max-height: 40px;
+  margin: 10px 0 5px;
+  font-size: 17px;
+  overflow: hidden;
+}
+
+
+.infos-movie {
+  font-size: 15px;
+  max-height: 20px;
+  overflow: hidden;
+  text-align: center;
+}
+
 .fade-enter {
   opacity: 0.01;
 }

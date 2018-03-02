@@ -23,15 +23,19 @@ class Home extends Component {
     super(props);
 
     this.state = {
+      articles: [],
       movies: [],
       search: {
-        terms: 'star wars',
+        terms: 'matrix',
         page: 1
       },
       views: 10,
       show: false,
       type: ["all", "series", "movie", 'episode']
     };
+
+    // Tableau de référence des images.
+    this.refImages = [];
   }
 
   componentWillMount(){
@@ -62,7 +66,7 @@ class Home extends Component {
   }
 
   onChangeSearchBar = ({target: {value}}) => {
-    const search = {...this.state.search, terms: value.trim().length > 0 ? value : 'star wars'};
+    const search = {...this.state.search, terms: value.trim().length > 0 ? value : 'matrix'};
     this.setState({search});
     this.searchMovies(search);
   }
@@ -89,10 +93,11 @@ class Home extends Component {
   
   render() {
     const {movies, search, views, type} = this.state;
+    console.log(movies);
     return (
       <div className="Home">
         <div className="Home-intro">
-          <div className="search-box">
+          <div>
             <label htmlFor="search">{'search :'}</label>
             <input id="search" type="text" onChange={(e) => this.onChangeSearchBar(e)}/>
             <label htmlFor="type">{'type :'}</label>
@@ -104,27 +109,21 @@ class Home extends Component {
             <label htmlFor="year">{'year :'}</label>
             <input id="year" type="number" onChange={this.onChangeInput} />
           </div>
-          <TransitionGroup className="todo-list">
-            <div className="container-movies" ref={(ref) => this.refMovies = ref}>
+          <div className="container" ref={(ref) => this.refMovies = ref}>
+            <TransitionGroup className="todo-list">
               {movies.map(({title, year, poster, type, imdb: id}, i) => poster !== 'N/A' && (
-                    <Link to={`/article/${id}`} className="Card-link">
-                <div className="movie-card">
-                  <Fade key={id}>
-                      <div className="card" key={id}>
-                          <div className="container-poster">
-                            <img src={poster} alt="poster" className="poster"/>
-                          </div>
-                          <div className="infos-container">
-                            <h3 className="title-movie">{title}</h3>
-                            <p className="infos-movie">{`${type}, ${year}`}</p>
-                          </div>
-                      </div>
-                  </Fade>
-                </div>
-                    </Link>
+                <Fade key={id}>
+                  <Link to={`/article/${id}`} className="Card-link">
+                    <div className="Card" key={id}>
+                        <img src={poster} alt="poster"/>
+                        <h3>{title}</h3>
+                        <p>{`${type}, ${year}`}</p>
+                    </div>
+                  </Link>
+                </Fade>
               ))}
+            </TransitionGroup>
           </div>
-          </TransitionGroup>
           {movies.length === 0 &&
             <div>{'no result found'}</div>
           }

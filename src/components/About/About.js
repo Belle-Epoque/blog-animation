@@ -6,27 +6,15 @@ import RaisedButton from "material-ui/RaisedButton";
 class About extends Component {
   constructor(props) {
     super(props);
-    this.refBox = null;
-  }
 
-  animate() {
-    const animation = new TimelineLite();
-    animation
-      .to(this.refBox, 1, { x: 100 })
-      .to(this.refBox, 1, { y: 100 })
-      .to(this.refBox, 1, { x: 0 })
-      .to(this.refBox, 1, { y: 0 });
   }
 
   render() {
     return (
       <div className="container">
-        <RaisedButton
-          onClick={() => this.animate()}
-          primary={true}
-          label="Animate"
-        />
-        <div className="box" ref={box => (this.refBox = box)} />
+        <h1>{'Welcome on Scuds search engine'}</h1>
+        <h3>{'and...'}</h3>
+        <h2>{'Enjoy !'}</h2>
       </div>
     );
   }

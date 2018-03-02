@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { getArticle } from "../../api/api";
+import { getMovie } from "../../api/omdb";
 import BlackBox from "./BlackBox.js";
 import "./Article.css";
 
@@ -7,49 +7,34 @@ class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {}
+      movie: {}
     };
   }
 
-  componentDidMount() {
-    this.refreshSingleArticle(this.props.match.params.number);
+  async componentDidMount() {
+    const movieID = this.props.match.params.number;
+    const movie = await getMovie(movieID);
+
+    this.setState({movie});
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.number !== this.props.match.params.number) {
-      // Fix bug: force to refresh article state when article id change.
-      this.refreshSingleArticle(nextProps.match.params.number);
-    }
-  }
-
-  async refreshSingleArticle(articleId) {
-    const filterArticle = await getArticle(articleId);
-
-    if (!filterArticle) {
-      // This article doesn't exist.
-      return;
-    }
-
-    this.setState({
-      article: filterArticle
-    });
+  formatData = (data) => {
+    return data && data.reduce((acc, value, key) => key > 0 ? acc + `, ${value}` : acc + value);
   }
 
   render() {
-    const { article: { title, body, img } } = this.state;
-
+    console.log(this.props);
+    const {movie, movie: { title, poster, plot, actors, genres, type, year, director, productionCompany }} = this.state;
     return (
       <Fragment>
-        <div className="Article-img" style={{ backgroundImage: `url(${img})` }}>
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-          <BlackBox reverseDirection={false} />
-          <BlackBox reverseDirection={true} />
-        </div>
         <div className="container">
           <div className="Article-body">
             <h1 className="Article-title">{title}</h1>
-            <p>{body}</p>
+            <img src={poster} alt="movie"/>
+            <h3>{`${type}, ${this.formatData(genres)}, ${year}`}</h3>
+            <h3>{`director: ${director}`}</h3>
+            <h3>{`actors: ${this.formatData(actors)}...`}</h3>
+            <p>{plot}</p>
           </div>
         </div>
       </Fragment>

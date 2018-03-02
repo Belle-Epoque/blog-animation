@@ -23,10 +23,12 @@
 }
 
 .Card-media {
+  background: #000;
   padding-top: 50%;
   width: 100%;
-  background-position: center;
-  background-size: cover;
+  background-position: top center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .Card-link {
